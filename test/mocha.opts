@@ -1,0 +1,6 @@
+--recursive
+--reporter list
+--allow-uncaught
+--timeout=30000
+--bail
+--exit
