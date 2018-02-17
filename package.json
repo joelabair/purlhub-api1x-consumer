@@ -1,7 +1,7 @@
 {
   "name": "purlhub-api1x-consumer",
   "version": "1.0.0",
-  "description": "Basic purlHub REST API JavaScript client library. ",
+  "description": "Basic ES6+ purlHub REST API JavaScript client library. ",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
@@ -15,13 +15,18 @@
   ],
   "author": "Joel A. Bair <joel.a.bair@gmail.com>",
   "license": "ISC",
+  "engines": {
+    "node": ">=7.6"
+  },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "chai": "*",
+    "chai-as-promised": "*"
   },
   "dependencies": {
     "chai": "*",
-	"debug": "*",
-	"superagent": "*",
+    "debug": "*",
+    "superagent": "*",
     "superagent-retry": "*",
     "superagent-throttle": "*",
     "validator": "*"

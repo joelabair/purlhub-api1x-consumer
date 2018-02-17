@@ -1,6 +1,7 @@
 "use strict";
 
-const debug = require('debug')('phRestClient-1.x');
+global.debugPrefix = 'phRestClient-1.x';
+const debug = require('debug')(debugPrefix);
 
 const validator = require('validator');
 const expect = require('chai').expect;
@@ -31,7 +32,7 @@ module.exports = function(base, user, pass) {
 		.and.to.have.length.above(1)
 		.and.to.match(/api(-dvlp)?\.purlhub\.(com|local)/);
 
-	expect(user, 'A login required!')
+	expect(user, 'A login is required!')
 		.to.exist.and
 		.to.be.a('string')
 		.and.to.have.length.above(1);
@@ -48,3 +49,4 @@ module.exports = function(base, user, pass) {
 		accounts: accounts(base, user, pass)
 	};
 };
+

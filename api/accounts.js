@@ -1,6 +1,7 @@
 "use strict";
 
-const debug = require('debug')('phRestClient-v1.0:accounts');
+/* global debugPrefix */
+const debug = require('debug')(debugPrefix+':accounts');
 
 const validator = require('validator');
 const expect = require('chai').expect;
