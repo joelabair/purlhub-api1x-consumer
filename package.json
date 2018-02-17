@@ -19,9 +19,8 @@
     "node": ">=7.6"
   },
   "devDependencies": {
-    "mocha": "*",
     "chai": "*",
-    "chai-as-promised": "*"
+    "mocha": "*"
   },
   "dependencies": {
     "chai": "*",
