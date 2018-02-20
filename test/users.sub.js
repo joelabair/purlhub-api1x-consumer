@@ -258,7 +258,7 @@ module.exports = () => {
 			it('removes itself', async () => {
 				await user.remove();
 				try {
-					let user = await users.get('new@test.org');
+					user = await users.get(user.login);
 					expect( user )
 						.to.not.exist;
 				} catch (e) {
