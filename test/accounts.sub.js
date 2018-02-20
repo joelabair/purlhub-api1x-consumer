@@ -53,8 +53,8 @@ module.exports = () => {
 			}
 		});
 
-		it('get method does not throw if an account name is provided', async () => {
-			// this is an account that does, in fact, exist
+		it('get method does not throw if an account name is provided and it exists', async () => {
+			// this is an account that does, in fact, exist - persistent requirement
 			let account = await accounts.get('test-co');
 
 			expect( account )
@@ -139,12 +139,7 @@ module.exports = () => {
 		});
 
 		it('can remove an account', async () => {
-			let account = {
-				alias: 'test',
-				timeZone: 'America/Denver',
-				enabled: true
-			};
-			account = await accounts.save(tac, account);
+			let account = await accounts.remove(tac);
 			expect( account )
 				.to.exist.and
 				.to.be.a('object').and
@@ -218,8 +213,8 @@ module.exports = () => {
 	describe('Users', require('./users.sub.js'));
 
 	/* Nodes */
-	describe('Nodes', require('./users.sub.js'));
+	describe('Nodes', require('./nodes.sub.js'));
 
 	/* Library */
-	describe('Library', require('./users.sub.js'));
+	describe('Library', require('./library.sub.js'));
 };

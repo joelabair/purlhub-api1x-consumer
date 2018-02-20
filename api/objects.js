@@ -41,91 +41,114 @@ module.exports = function(base, user, pass) {
 
 	const throttle = require('./throttle.js');
 
-	let req = request.agent()
+	const req = request.agent()
 		.use(throttle.plugin())
 		.set('Accept', 'application/json')
 		.auth(user, pass)
 		.retry(3);
 
+	const compose = function compose(data) {
+		if (!data || !data.purlCode) {
+			return data;
+		}
+
+		return Object.create({
+			save: async function() {
+				let name = this.purlCode || null;
+				return save(name, this);
+			},
+			remove: async function() {
+				let name = this.purlCode || null;
+				return remove(name);
+			}
+		},
+		Object.getOwnPropertyDescriptors(data));
+	};
+
+	const get = async function get(name) {
+		// jshint expr:true
+
+		expect(name, 'A purlCode is required!')
+			.to.exist.and
+			.to.be.a('string')
+			.and.to.have.length.above(1);
+
+		expect(validator.isEmail(name), 'A purlCode is required!')
+			.to.be.false;
+
+		let params = {
+			'containsFilter': {
+				'purlCode' : name
+			}
+		};
+
+		debug('Getting Object [%s].', name);
+		let res = await req.get(base+'/purlProfilesList').query(params);
+		debug('%O', res.body.response.data[0]);
+		return res.body.response.data[0];
+	};
+
+	const list = async function list(filter) {
+		let data = [];
+
+		debug('Scanning Objects...');
+		let [batch, total] = await _getBatch(req, base, filter, 0);
+		Array.prototype.push.apply(data, batch);
+
+		if (total) {
+			while(data.length < total) {
+				[batch, total] = await _getBatch(req, base, filter, data.length);
+				Array.prototype.push.apply(data, batch);
+			}
+		}
+
+		debug('Found [%s] Objects...', total);
+
+		batch = null;
+		return data;
+	};
+
+	const save = async function save(code, data) {
+		expect(code, 'A purlCode is required!')
+			.to.exist.and
+			.to.be.a('string')
+			.and.to.have.length.above(1);
+
+		expect(data, 'Some data (obj) is required!')
+			.to.exist.and
+			.to.be.a('object');
+
+		debug('Saving Object [%s].', code);
+		let res = await req.post(base+'/purlProfile')
+			.query({
+				'purlCode': code
+			})
+			.send(data);
+		debug('%O', res.body.response.data);
+		return res.body.response.data;
+	};
+
+	const remove = async function remove(code) {
+		expect(code, 'A purlCode is required!')
+			.to.exist.and
+			.to.be.a('string')
+			.and.to.have.length.above(1);
+
+		debug('Removing Object [%s].', code);
+		let res = await req.del(base+'/purlProfile')
+			.query({
+				'purlCode': code
+			});
+		debug('%O', res.body.response.data);
+		return res.body.response.data;
+	};
+
 	debug('Attached child @ %s.', base);
 
 	return {
-		get: async function(name) {
-			expect(name, 'A email/code is required!')
-				.to.exist.and
-				.to.be.a('string')
-				.and.to.have.length.above(1);
-
-			let params = {
-				'containsFilter': {
-					'purlCode' : name
-				}
-			};
-
-			if (validator.isEmail(name)) {
-				params = {
-					'containsFilter': {
-						'email' : name
-					}
-				};
-			}
-
-			debug('Getting Object [%s].', name);
-			let res = await req.get(base+'/purlProfilesList').query(params);
-			debug('%O', res.body.response.data[0]);
-			return res.body.response.data[0];
-		},
-		list: async function(filter) {
-			let data = [];
-
-			debug('Scanning Objects...');
-			let [list, total] = await _getBatch(req, base, filter, 0);
-			Array.prototype.push.apply(data, list);
-
-			if (total) {
-				while(data.length < total) {
-					[list, total] = await _getBatch(req, base, filter, data.length);
-					Array.prototype.push.apply(data, list);
-				}
-			}
-
-			debug('Found [%s] Objects...', total);
-
-			list = null;
-			return data;
-		},
-		save: async function(code, data) {
-			expect(code, 'A id/code is required!')
-				.to.exist.and
-				.to.be.a('string')
-				.and.to.have.length.above(1);
-
-			expect(data, 'Some data (obj) is required!')
-				.to.exist.and
-				.to.be.a('object');
-
-			debug('Saving Object [%s].', code);
-			let res = await req.post(base+'/purlProfile')
-				.query({
-					'purlCode': code
-				})
-				.send(data);
-			debug('%O', res.body.response.data);
-			return res.body.response.data;
-		},
-		remove: async function(code) {
-			expect(code, 'A id/code is required!')
-				.to.exist.and
-				.to.be.a('string')
-				.and.to.have.length.above(1);
-
-			debug('Removing Object [%s].', code);
-			let res = await req.del(base+'/purlProfile')
-				.query({
-					'purlCode': code
-				});
-			debug('%O', res.body.response.data);
-			return res.body.response.data;
-		}
+		get: get,
+		list: list,
+		save: save,
+		remove: remove
 	};
 };

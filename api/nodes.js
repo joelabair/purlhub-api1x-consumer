@@ -33,13 +33,13 @@ module.exports = function(base, user, pass) {
 
 	const throttle = require('./throttle.js');
 
-	let req = request.agent()
+	const req = request.agent()
 		.use(throttle.plugin())
 		.set('Accept', 'application/json')
 		.auth(user, pass)
 		.retry(3);
 
-	let compose = function(data) {
+	const compose = function compose(data) {
 		if (!data || !data.nodeName) {
 			return data;
 		}
@@ -51,66 +51,105 @@ module.exports = function(base, user, pass) {
 			data.childNodes = data.childNodes.map(compose);
 		}
 
+		let descriptor = Object.getOwnPropertyDescriptors(data);
+
+		descriptor.classification = {
+			get: function() {
+				return this['nodeClass'];
+			},
+			set: function(v) {
+				this['nodeClass'] = v;
+			},
+			configurable: false,
+			enumerable: false
+		};
+
 		return Object.create({
-			objects: require('./objects.js')(_pObjBase, user, pass)
+			objects: require('./objects.js')(_pObjBase, user, pass),
+			save: async function() {
+				let name = this.id || null;
+				return save(name, this);
+			},
+			remove: async function() {
+				let name = this.id || null;
+				return remove(name);
+			},
+			id: data.nodePath,
+			original: data.nodeName
 		},
-		Object.getOwnPropertyDescriptors(data));
+		descriptor);
+	};
+
+	const get = async function get(path) {
+		path = trimSlashes(path);
+
+		expect(path, 'A node path is required!')
+			.to.exist.and
+			.to.be.a('string')
+			.and.to.have.length.above(1);
+
+		debug('Getting Node [%s].', path);
+		let res = await req.get(base+'/nodes/'+path);
+		debug('%O', res.body.response.data[0]);
+		return compose(res.body.response.data[0]);
+	};
+
+	const list = async function list() {
+		debug('Scanning Nodes...');
+		let res = await req.get(base+'/nodes/');
+		debug('%O', res.body.response.data);
+		return res.body.response.data.map(compose);
+	};
+
+	const save = async function save(path, data) {
+		path = trimSlashes(path);
+
+		expect(path, 'A node path is required!')
+			.to.exist.and
+			.to.be.a('string')
+			.and.to.have.length.above(1);
+
+		expect(data, 'Some data (obj) is required!')
+			.to.exist.and
+			.to.be.a('object').and
+			.to.contain.any.keys("classification", "status", "description", "newName");
+
+		let _data = {};
+
+		if (data.original !== data.nodeName) {
+			data.newName = data.nodeName;
+		}
+
+		["classification", "status", "description", "newName"].forEach(n => {
+			if (data[n]) _data[n] = data[n];
+		});
+
+		debug('Saving Node [%s] w/ %O', path, _data);
+		let res = await req.post(base+'/nodes/'+path).send(_data);
+		debug('%O', res.body.response.data);
+		return compose(res.body.response.data);
+	};
+
+	const remove = async function remove(path) {
+		path = trimSlashes(path);
+
+		expect(path, 'A node path is required!')
+			.to.exist.and
+			.to.be.a('string')
+			.and.to.have.length.above(1);
+
+		debug('Removing Node [%s].', path);
+		let res = await req.del(base+'/nodes/'+path);
+		debug('%O', res.body.response.data);
+		return res.body.response.data;
 	};
 
 	debug('Attached child @ %s.', base);
 
 	return {
-		get: async function(path) {
-			path = trimSlashes(path);
-
-			expect(path, 'A node path is required!')
-				.to.exist.and
-				.to.be.a('string')
-				.and.to.have.length.above(1);
-
-			debug('Getting Node [%s].', path);
-			let res = await req.get(base+'/nodes/'+path);
-			debug('%O', res.body.response.data[0]);
-			return compose(res.body.response.data[0]);
-		},
-
-		list: async function() {
-			debug('Scanning Nodes...');
-			let res = await req.get(base+'/nodes/');
-			debug('%O', res.body.response.data);
-			return res.body.response.data.map(compose);
-		},
-
-		save: async function(path, data) {
-			path = trimSlashes(path);
-
-			expect(path, 'A node path is required!')
-				.to.exist.and
-				.to.be.a('string')
-				.and.to.have.length.above(1);
-
-			expect(data, 'Some data (obj) is required!')
-				.to.exist.and
-				.to.be.a('object');
-
-			debug('Saving Node [%s] w/ %O', path, data);
-			let res = await req.post(base+'/nodes/'+path).send(data);
-			debug('%O', res.body.response.data);
-			return compose(res.body.response.data);
-		},
-
-		remove: async function(path) {
-			path = trimSlashes(path);
-
-			expect(path, 'A node path is required!')
-				.to.exist.and
-				.to.be.a('string')
-				.and.to.have.length.above(1);
-
-			debug('Removing Node [%s].', path);
-			let res = await req.del(base+'/nodes/'+path);
-			debug('%O', res.body.response.data);
-			return res.body.response.data;
-		}
+		get: get,
+		list: list,
+		save: save,
+		remove: remove
 	};
 };
