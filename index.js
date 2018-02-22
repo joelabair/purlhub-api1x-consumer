@@ -26,10 +26,15 @@ function trimSlashes (data) {
 
 /**
  * purlHub API Root instance constructor (new||call).
- * @base {string} - The API root URI (i.e. https://api.purlhub.com).
- * @user {string} - A login username.
- * @pass {string} - A login password.
- * @returns {object}
+ *
+ * @type module
+ * @namespace API
+ *
+ * @param {string} base 	The API root URI (i.e. https://api.purlhub.com).
+ * @param {string} user 	A login username.
+ * @param {string} pass 	The associated password.
+ *
+ * @returns {class} A class bound to the URI and credential set.
  *
  * @example
  * const API = require('purlhub-api1x-consumer');

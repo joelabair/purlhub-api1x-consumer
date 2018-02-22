@@ -23,8 +23,14 @@ function trimSlashes (data) {
 	return data;
 }
 
-// Accounts Endpoint
-module.exports = function(base, user, pass) {
+
+/**
+ * API Accounts sub-structure
+ *
+ * @memberof API
+ *
+ */
+function accounts(base, user, pass) {
 	expect(base, 'A baseURI is required!')
 		.to.exist.and
 		.to.be.a('string')
@@ -49,6 +55,11 @@ module.exports = function(base, user, pass) {
 		.auth(user, pass)
 		.retry(3);
 
+	/**
+	 * A purlHub account instance.
+	 * @namespace Account
+	 * @type object
+	 */
 	const compose = function compose(data) {
 		if (!data || !data.accountName) {
 			return data;
@@ -60,10 +71,20 @@ module.exports = function(base, user, pass) {
 			library: require('./library.js')(_base, user, pass),
 			nodes: require('./nodes.js')(_base, user, pass),
 			users: require('./users.js')(_base, user, pass),
+			/**
+			* Save this account instance.
+			* @memberof Account
+			* @returns {object}	The saved purlHub account (w/ instance methods).
+			*/
 			save: async function() {
 				let name = this.accountName || null;
 				return save(name, this);
 			},
+			/**
+			* Remove this account instance.
+			* @memberof Account
+			* @returns {object}	The removed purlHub account (w/ out instance methods).
+			*/
 			remove: async function() {
 				let name = this.accountName || null;
 				return remove(name);
@@ -72,6 +93,11 @@ module.exports = function(base, user, pass) {
 		Object.getOwnPropertyDescriptors(data));
 	};
 
+	/**
+	* Gets an account.
+	* @param {string} name	A purlHub account name.
+	* @returns {object}	The purlHub account.
+	*/
 	const get = async function get(name) {
 		name = trimSlashes(name);
 
@@ -86,6 +112,10 @@ module.exports = function(base, user, pass) {
 		return compose(res.body.response.data);
 	};
 
+	/**
+	* Lists some accounts.
+	* @returns {array}	An array of purlHub account objects.
+	*/
 	const list = async function list() {
 		debug('Scanning Accounts...');
 		let res = await req.get(base+'/admin/rest/accounts/');
@@ -93,6 +123,10 @@ module.exports = function(base, user, pass) {
 		return res.body.response.data.map(compose); // array of objects
 	};
 
+	/**
+	* Saves an account.
+	* @returns {object}	The saved purlHub account.
+	*/
 	const save = async function save(name, data) {
 		name = trimSlashes(name);
 
@@ -118,6 +152,10 @@ module.exports = function(base, user, pass) {
 		return compose(res.body.response.data);
 	};
 
+	/**
+	* Removes an account.
+	* @returns {object}	The removed purlHub account.
+	*/
 	const remove = async function remove(name) {
 		name = trimSlashes(name);
 
@@ -140,4 +178,6 @@ module.exports = function(base, user, pass) {
 		save: save,
 		remove: remove
 	};
-};
+}
+
+module.exports = accounts;
