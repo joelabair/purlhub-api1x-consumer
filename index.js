@@ -1,10 +1,13 @@
 "use strict";
 
 global.debugPrefix = 'phRestClient-1.x';
+
+/* global debugPrefix */
 const debug = require('debug')(debugPrefix);
 
 const validator = require('validator');
 const expect = require('chai').expect;
+const { URL } = require('url');
 
 var sanitize = function sanitize(data) {
 	data = validator.toString(data);
@@ -20,11 +23,31 @@ function trimSlashes (data) {
 	return data;
 }
 
-// purlHub API Root
-module.exports = function api(base, user, pass) {
+
+/**
+ * purlHub API Root instance constructor (new||call).
+ * @base {string} - The API root URI (i.e. https://api.purlhub.com).
+ * @user {string} - A login username.
+ * @pass {string} - A login password.
+ * @returns {object}
+ *
+ * @example
+ * const API = require('purlhub-api1x-consumer');
+ * let api = new API('https://api.purlhub.com', 'user@example.com', '12345678');
+ *
+ * // OR simply
+ * const API = require('purlhub-api1x-consumer');
+ * let api = API('https://api.purlhub.com', 'user@example.com', '12345678');
+ */
+function api(base, user, pass) {
 	base = trimSlashes(base);
 	user = sanitize(user);
 	pass = sanitize(pass);
+
+	// validate the base as a URI and make sure its using https
+	let url = new URL(base);
+	url.protocol = 'https:';
+	base = url.toString();
 
 	expect(base, 'A baseURI is required!')
 		.to.exist.and
@@ -48,4 +71,6 @@ module.exports = function api(base, user, pass) {
 	return {
 		accounts: accounts(base, user, pass)
 	};
-};
+}
+
+module.exports = api;

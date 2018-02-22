@@ -6,7 +6,6 @@ const expect = chai.expect;
 const root = process.env['PHAPICON_TESTURIROOT'];
 const login = process.env['PHAPICON_TESTLOGIN'];
 const pass = process.env['PHAPICON_TESTPASS'];
-const tac = 'random-test-'+(new Date()).getTime();
 
 // jshint mocha:true
 // jshint expr:true
