@@ -74,7 +74,7 @@ function accounts(base, user, pass) {
 			/**
 			* Save this account instance.
 			* @memberof Account
-			* @returns {object}	The saved purlHub account (w/ instance methods).
+			* @returns {object}	The saved purlHub {@link #account|Account} (w/ instance methods).
 			*/
 			save: async function() {
 				let name = this.accountName || null;
@@ -83,7 +83,7 @@ function accounts(base, user, pass) {
 			/**
 			* Remove this account instance.
 			* @memberof Account
-			* @returns {object}	The removed purlHub account (w/ out instance methods).
+			* @returns {object}	The removed purlHub {@link #account|Account} (static object w/ out instance methods).
 			*/
 			remove: async function() {
 				let name = this.accountName || null;
@@ -96,7 +96,7 @@ function accounts(base, user, pass) {
 	/**
 	* Gets an account.
 	* @param {string} name	A purlHub account name.
-	* @returns {object}	The purlHub account.
+	* @returns {object}	The found purlHub {@link #account|Account} instance.
 	*/
 	const get = async function get(name) {
 		name = trimSlashes(name);
@@ -114,7 +114,7 @@ function accounts(base, user, pass) {
 
 	/**
 	* Lists some accounts.
-	* @returns {array}	An array of purlHub account objects.
+	* @returns {array}	An array of purlHub {@link #account|Account} object instances.
 	*/
 	const list = async function list() {
 		debug('Scanning Accounts...');
@@ -125,7 +125,9 @@ function accounts(base, user, pass) {
 
 	/**
 	* Saves an account.
-	* @returns {object}	The saved purlHub account.
+	* @param {string} name	A purlHub account name.
+	* @param {object} data	A purlHub {@link #account|Account} object.
+	* @returns {object}	The saved purlHub {@link #account|Account} instance.
 	*/
 	const save = async function save(name, data) {
 		name = trimSlashes(name);
@@ -154,7 +156,8 @@ function accounts(base, user, pass) {
 
 	/**
 	* Removes an account.
-	* @returns {object}	The removed purlHub account.
+	* @param {string} name	A purlHub account name.
+	* @returns {object}	The removed purlHub {@link #account|Account} (static object w/ out instance methods).
 	*/
 	const remove = async function remove(name) {
 		name = trimSlashes(name);

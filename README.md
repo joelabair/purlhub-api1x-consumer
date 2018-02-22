@@ -41,8 +41,8 @@ let api = API('https://api.purlhub.com', 'user@example.com', '12345678');
     * [.accounts()](#API.accounts)
         * [~get(name)](#API.accounts..get) ⇒ <code>object</code>
         * [~list()](#API.accounts..list) ⇒ <code>array</code>
-        * [~save()](#API.accounts..save) ⇒ <code>object</code>
-        * [~remove()](#API.accounts..remove) ⇒ <code>object</code>
+        * [~save(name, data)](#API.accounts..save) ⇒ <code>object</code>
+        * [~remove(name)](#API.accounts..remove) ⇒ <code>object</code>
 
 <a name="API.accounts"></a>
 
@@ -54,8 +54,8 @@ API Accounts sub-structure
 * [.accounts()](#API.accounts)
     * [~get(name)](#API.accounts..get) ⇒ <code>object</code>
     * [~list()](#API.accounts..list) ⇒ <code>array</code>
-    * [~save()](#API.accounts..save) ⇒ <code>object</code>
-    * [~remove()](#API.accounts..remove) ⇒ <code>object</code>
+    * [~save(name, data)](#API.accounts..save) ⇒ <code>object</code>
+    * [~remove(name)](#API.accounts..remove) ⇒ <code>object</code>
 
 <a name="API.accounts..get"></a>
 
@@ -63,7 +63,7 @@ API Accounts sub-structure
 Gets an account.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>object</code> - The purlHub account.  
+**Returns**: <code>object</code> - The found purlHub [Account](#account) instance.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -75,21 +75,32 @@ Gets an account.
 Lists some accounts.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>array</code> - An array of purlHub account objects.  
+**Returns**: <code>array</code> - An array of purlHub [Account](#account) object instances.  
 <a name="API.accounts..save"></a>
 
-#### accounts~save() ⇒ <code>object</code>
+#### accounts~save(name, data) ⇒ <code>object</code>
 Saves an account.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>object</code> - The saved purlHub account.  
+**Returns**: <code>object</code> - The saved purlHub [Account](#account) instance.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>string</code> | A purlHub account name. |
+| data | <code>object</code> | A purlHub [Account](#account) object. |
+
 <a name="API.accounts..remove"></a>
 
-#### accounts~remove() ⇒ <code>object</code>
+#### accounts~remove(name) ⇒ <code>object</code>
 Removes an account.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>object</code> - The removed purlHub account.  
+**Returns**: <code>object</code> - The removed purlHub [Account](#account) (static object w/ out instance methods).  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>string</code> | A purlHub account name. |
+
 <a name="Account"></a>
 
 ## Account : <code>object</code>
@@ -107,11 +118,11 @@ A purlHub account instance.
 Save this account instance.
 
 **Kind**: static method of [<code>Account</code>](#Account)  
-**Returns**: <code>object</code> - The saved purlHub account (w/ instance methods).  
+**Returns**: <code>object</code> - The saved purlHub [Account](#account) (w/ instance methods).  
 <a name="Account.remove"></a>
 
 ### Account.remove() ⇒ <code>object</code>
 Remove this account instance.
 
 **Kind**: static method of [<code>Account</code>](#Account)  
-**Returns**: <code>object</code> - The removed purlHub account (w/ out instance methods).  
+**Returns**: <code>object</code> - The removed purlHub [Account](#account) (static object w/ out instance methods).  
