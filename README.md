@@ -39,10 +39,10 @@ let api = API('https://api.purlhub.com', 'user@example.com', '12345678');
 
 * [API](#API) ⇒ <code>class</code>
     * [.accounts()](#API.accounts)
-        * [~get(name)](#API.accounts..get) ⇒ <code>object</code>
-        * [~list()](#API.accounts..list) ⇒ <code>array</code>
-        * [~save(name, data)](#API.accounts..save) ⇒ <code>object</code>
-        * [~remove(name)](#API.accounts..remove) ⇒ <code>object</code>
+        * [~get(name)](#API.accounts..get) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+        * [~list()](#API.accounts..list) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+        * [~save(name, data)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+        * [~remove(name)](#API.accounts..remove) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 
 <a name="API.accounts"></a>
 
@@ -52,18 +52,18 @@ API Accounts sub-structure
 **Kind**: static method of [<code>API</code>](#API)  
 
 * [.accounts()](#API.accounts)
-    * [~get(name)](#API.accounts..get) ⇒ <code>object</code>
-    * [~list()](#API.accounts..list) ⇒ <code>array</code>
-    * [~save(name, data)](#API.accounts..save) ⇒ <code>object</code>
-    * [~remove(name)](#API.accounts..remove) ⇒ <code>object</code>
+    * [~get(name)](#API.accounts..get) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+    * [~list()](#API.accounts..list) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+    * [~save(name, data)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+    * [~remove(name)](#API.accounts..remove) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 
 <a name="API.accounts..get"></a>
 
-#### accounts~get(name) ⇒ <code>object</code>
+#### accounts~get(name) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 Gets an account.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>object</code> - The found purlHub [Account](#account) instance.  
+**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to a purlHub [Account](#account) instance.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -71,18 +71,18 @@ Gets an account.
 
 <a name="API.accounts..list"></a>
 
-#### accounts~list() ⇒ <code>array</code>
+#### accounts~list() ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 Lists some accounts.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>array</code> - An array of purlHub [Account](#account) object instances.  
+**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to an array of purlHub [Account](#account) object instances.  
 <a name="API.accounts..save"></a>
 
-#### accounts~save(name, data) ⇒ <code>object</code>
+#### accounts~save(name, data) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 Saves an account.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>object</code> - The saved purlHub [Account](#account) instance.  
+**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to a purlHub [Account](#account) instance.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -91,11 +91,11 @@ Saves an account.
 
 <a name="API.accounts..remove"></a>
 
-#### accounts~remove(name) ⇒ <code>object</code>
+#### accounts~remove(name) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 Removes an account.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>object</code> - The removed purlHub [Account](#account) (static object w/ out instance methods).  
+**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to the removed purlHub [Account](#account) (static object w/ out instance methods).  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -109,20 +109,20 @@ A purlHub account instance.
 **Kind**: global namespace  
 
 * [Account](#Account) : <code>object</code>
-    * [.save()](#Account.save) ⇒ <code>object</code>
-    * [.remove()](#Account.remove) ⇒ <code>object</code>
+    * [.save()](#Account.save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+    * [.remove()](#Account.remove) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 
 <a name="Account.save"></a>
 
-### Account.save() ⇒ <code>object</code>
+### Account.save() ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 Save this account instance.
 
 **Kind**: static method of [<code>Account</code>](#Account)  
-**Returns**: <code>object</code> - The saved purlHub [Account](#account) (w/ instance methods).  
+**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to the saved purlHub [Account](#account) (w/ instance methods).  
 <a name="Account.remove"></a>
 
-### Account.remove() ⇒ <code>object</code>
+### Account.remove() ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 Remove this account instance.
 
 **Kind**: static method of [<code>Account</code>](#Account)  
-**Returns**: <code>object</code> - The removed purlHub [Account](#account) (static object w/ out instance methods).  
+**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to the removed purlHub [Account](#account) (static object w/ out instance methods).  
