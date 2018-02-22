@@ -231,4 +231,6 @@ module.exports = () => {
 
 	});
 
+	/* Objects */
+	describe('Objects', require('./objects.sub.js'));
 };

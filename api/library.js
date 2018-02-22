@@ -1,6 +1,7 @@
 "use strict";
 
 const debug = require('debug')('phRestClient-v1.0:accounts.library');
+const resdbg = require('debug')('phRestClient-v1.0:accounts.library-response');
 
 const validator = require('validator');
 const expect = require('chai').expect;
@@ -105,7 +106,7 @@ module.exports = function(base, user, pass) {
 
 		debug('Getting Asset [%s/%s].', context, filename);
 		let res = await req.get(base+`/library/assets/${context}/${filename}`).query(options);
-		debug('%O', res.body.response.data.item);
+		resdbg('%O', res.body.response.data.item);
 		return compose(res.body.response.data.item);
 	};
 
@@ -142,7 +143,7 @@ module.exports = function(base, user, pass) {
 				data = data.list;
 			}
 		}
-		debug('%O', data);
+		resdbg('%O', data);
 		return data.map(compose);
 	};
 
@@ -201,7 +202,7 @@ module.exports = function(base, user, pass) {
 
 		debug('Saving Asset [%s/%s] w/ %O', context, filename, _data);
 		let res = await req.post(base+`/library/assets/${context}/${filename}`).send(_data);
-		debug('%O', res.body.response.data.item);
+		resdbg('%O', res.body.response.data.item);
 		return compose(res.body.response.data.item);
 	};
 
@@ -228,7 +229,7 @@ module.exports = function(base, user, pass) {
 
 		debug('Removing Asset [%s/%s].', context, filename);
 		let res = await req.del(base+`/library/assets/${context}/${filename}`).query(options);
-		debug('%O', res.body.response.data.item);
+		resdbg('%O', res.body.response.data.item);
 		return res.body.response.data.item;
 	};
 

@@ -20,8 +20,8 @@ function trimSlashes (data) {
 	return data;
 }
 
-// Accounts Endpoint
-module.exports = function(base, user, pass) {
+// purlHub API Root
+module.exports = function api(base, user, pass) {
 	base = trimSlashes(base);
 	user = sanitize(user);
 	pass = sanitize(pass);
@@ -49,4 +49,3 @@ module.exports = function(base, user, pass) {
 		accounts: accounts(base, user, pass)
 	};
 };
-

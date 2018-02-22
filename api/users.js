@@ -1,6 +1,8 @@
 "use strict";
 
 const debug = require('debug')('phRestClient-v1.0:accounts.users');
+const resdbg = require('debug')(debugPrefix+':accounts.users-response');
+
 const expect = require('chai').expect;
 const request = require('superagent');
 require('superagent-retry')(request);
@@ -76,14 +78,14 @@ module.exports = function users(base, user, pass) {
 
 		debug('Getting User [%s].', name);
 		let res = await req.get(base+'/users/'+name);
-		debug('%O', res.body.response.data);
+		resdbg('%O', res.body.response.data);
 		return compose(res.body.response.data);
 	};
 
 	const list = async function list() {
 		debug('Scanning Users...');
 		let res = await req.get(base+'/users/');
-		debug('%O', res.body.response.data);
+		resdbg('%O', res.body.response.data);
 		return res.body.response.data.map(compose);
 	};
 
@@ -115,7 +117,7 @@ module.exports = function users(base, user, pass) {
 
 		debug('Saving User [%s] w/ %O', name, _data);
 		let res = await req.post(base+'/users/'+name).send(_data);
-		debug('%O', res.body.response.data);
+		resdbg('%O', res.body.response.data);
 		return compose(res.body.response.data);
 	};
 
@@ -127,7 +129,7 @@ module.exports = function users(base, user, pass) {
 
 		debug('Removing User [%s].', name);
 		let res = await req.del(base+'/users/'+name);
-		debug('%O', res.body.response.data);
+		resdbg('%O', res.body.response.data);
 		return res.body.response.data;
 	};
 

@@ -1,6 +1,8 @@
 "use strict";
 
 const debug = require('debug')('phRestClient-v1.0:accounts.nodes');
+const resdbg = require('debug')('phRestClient-v1.0:accounts.nodes-response');
+
 const expect = require('chai').expect;
 const request = require('superagent');
 require('superagent-retry')(request);
@@ -90,14 +92,14 @@ module.exports = function(base, user, pass) {
 
 		debug('Getting Node [%s].', path);
 		let res = await req.get(base+'/nodes/'+path);
-		debug('%O', res.body.response.data[0]);
+		resdbg('%O', res.body.response.data[0]);
 		return compose(res.body.response.data[0]);
 	};
 
 	const list = async function list() {
 		debug('Scanning Nodes...');
 		let res = await req.get(base+'/nodes/');
-		debug('%O', res.body.response.data);
+		resdbg('%O', res.body.response.data);
 		return res.body.response.data.map(compose);
 	};
 
@@ -126,7 +128,7 @@ module.exports = function(base, user, pass) {
 
 		debug('Saving Node [%s] w/ %O', path, _data);
 		let res = await req.post(base+'/nodes/'+path).send(_data);
-		debug('%O', res.body.response.data);
+		resdbg('%O', res.body.response.data);
 		return compose(res.body.response.data);
 	};
 
@@ -140,7 +142,7 @@ module.exports = function(base, user, pass) {
 
 		debug('Removing Node [%s].', path);
 		let res = await req.del(base+'/nodes/'+path);
-		debug('%O', res.body.response.data);
+		resdbg('%O', res.body.response.data);
 		return res.body.response.data;
 	};
 
