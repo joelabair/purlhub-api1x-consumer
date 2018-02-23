@@ -47,7 +47,7 @@ let api = API('https://api.purlhub.com', 'user@example.com', '12345678');
 ```
 
 * [API](#API) ⇒ <code>class</code>
-    * [.accounts()](#API.accounts)
+    * [.accounts](#API.accounts)
         * [~get(name)](#API.accounts..get) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
         * [~list()](#API.accounts..list) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
         * [~save(name, data)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
@@ -55,12 +55,12 @@ let api = API('https://api.purlhub.com', 'user@example.com', '12345678');
 
 <a name="API.accounts"></a>
 
-### API.accounts()
+### API.accounts
 API Accounts sub-structure
 
-**Kind**: static method of [<code>API</code>](#API)  
+**Kind**: static property of [<code>API</code>](#API)  
 
-* [.accounts()](#API.accounts)
+* [.accounts](#API.accounts)
     * [~get(name)](#API.accounts..get) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
     * [~list()](#API.accounts..list) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
     * [~save(name, data)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>

@@ -26,6 +26,7 @@ function trimSlashes (data) {
 
 /**
  * API Accounts sub-structure
+ * @kind member
  * @memberof API
  */
 function accounts(base, user, pass) {
