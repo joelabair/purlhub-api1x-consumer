@@ -29,8 +29,12 @@ function pluralize (data) {
 	return data;
 }
 
-// Accounts Library Assets Endpoint
-module.exports = function(base, user, pass) {
+/**
+* API Accounts Library (asset library) sub-structure.
+* @kind member
+* @memberof Account
+*/
+function library(base, user, pass) {
 	expect(base, 'A baseURI is required!')
 		.to.exist.and
 		.to.be.a('string')
@@ -57,6 +61,19 @@ module.exports = function(base, user, pass) {
 		.auth(user, pass)
 		.retry(3);
 
+	/**
+	 * A purlHub account library asset instance.
+	 * @namespace Asset
+	 * @type object
+	 *
+	 * @property {string} filename			The filename including any path.
+	 * @property {object} metadata		The associated metadata.
+	 * @property {string} contentType	A binary content type.
+	 * @property {boolean} head			The CV state flag.
+	 * @property {boolean} deleted		The files deleted state flag.
+	 * @property {number} length			The file's binary data content length.
+	 * @property {number} version			The version identifier.
+	 */
 	const compose = function compose(data) {
 		if (!data) return data;
 
@@ -66,12 +83,34 @@ module.exports = function(base, user, pass) {
 			.to.contain.any.keys("filename", "metadata", "contentType", "head", "length");
 
 		return Object.create({
+			/**
+			* Save this asset instance.
+			* @async
+			* @memberof Asset
+			* @returns {Promise<Asset,HTTPError>}	A promise that resolves to the saved purlHub {@link #asset|Asset} (w/ instance methods).
+			*
+			* @example
+			* asset.save()
+			* 	.catch(console.error)
+			* 	.then(console.log);
+			*/
 			save: async function() {
 				let name = this.id || null;
 				let metadata = this.metadata || {};
 				let context = metadata.context || null;
 				return save(context, name, this);
 			},
+			/**
+			* Remove this asset instance.
+			* @async
+			* @memberof Asset
+			* @returns {Promise<Asset,HTTPError>}	A promise that resolves to the removed purlHub {@link #asset|Asset} (static object w/ out instance methods).
+			*
+			* @example
+			* asset.remove()
+			* 	.catch(console.error)
+			* 	.then(console.log);
+			*/
 			remove: async function() {
 				let name = this.id || null;
 				let metadata = this.metadata || {};
@@ -83,6 +122,19 @@ module.exports = function(base, user, pass) {
 		Object.getOwnPropertyDescriptors(data));
 	};
 
+	/**
+	* Gets a library asset.
+	* @async
+	* @param {string} context		The asset's context (images|documents|videos|layouts|sections|templates).
+	* @param {string} filename		A asset filename including any path.
+	* @param {object} [options]		An optional object of request options.
+	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to a purlHub {@link #asset|Asset} instance.
+	*
+	* @example
+	* let asset = account.library.get('templates','/email/message.txt')
+	* 	.catch(console.error)
+	* 	.then(console.log);
+	*/
 	const get = async function get(context, filename, options) {
 		context = pluralize(trimSlashes(context));
 		filename = trimSlashes(filename);
@@ -110,6 +162,19 @@ module.exports = function(base, user, pass) {
 		return compose(res.body.response.data.item);
 	};
 
+	/**
+	* Lists all assets.
+	* @async
+	* @param {string} context		The asset's context (images|documents|videos|layouts|sections|templates).
+	* @param {string} [directory]	An optional directory prefix.
+	* @param {object} [options]		An optional object of request options.
+	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to an array of purlHub {@link #asset|Asset} object instances.
+	*
+	* @example
+	* let assets = account.library.list('templates')
+	* 	.catch(console.error)
+	* 	.then(console.log);
+	*/
 	const list = async function list(context, directory, options) {
 		context = pluralize(trimSlashes(context));
 
@@ -147,6 +212,20 @@ module.exports = function(base, user, pass) {
 		return data.map(compose);
 	};
 
+	/**
+	* Saves a library asset.
+	* @async
+	* @param {string} context		The asset's context (images|documents|videos|layouts|sections|templates).
+	* @param {string} filename		A asset filename including any path.
+	* @param {object} data			A purlHub {@link #asset|Asset} instance.
+	* @param {object} [options]		An optional object of request options.
+	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to a purlHub {@link #asset|Asset} instance.
+	*
+	* @example
+	* let asset = account.library.save('templates','/email/message.txt', {...})
+	* 	.catch(console.error)
+	* 	.then(console.log);
+	*/
 	const save = async function save(context, filename, data, options) {
 		context = pluralize(trimSlashes(context));
 		filename = trimSlashes(filename);
@@ -206,6 +285,19 @@ module.exports = function(base, user, pass) {
 		return compose(res.body.response.data.item);
 	};
 
+	/**
+	* Removes a asset.
+	* @async
+	* @param {string} context		The asset's context (images|documents|videos|layouts|sections|templates).
+	* @param {string} filename		A asset filename including any path.
+	* @param {object} [options]		An optional object of request options.
+	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to a purlHub {@link #asset|Asset} instance (static object w/ out instance methods).
+	*
+	* @example
+	* let asset = account.library.remove('templates','/email/message.txt')
+	* 	.catch(console.error)
+	* 	.then(console.log);
+	*/
 	const remove = async function remove(context, filename, options) {
 		context = pluralize(trimSlashes(context));
 		filename = trimSlashes(filename);
@@ -241,4 +333,6 @@ module.exports = function(base, user, pass) {
 		save: save,
 		remove: remove
 	};
-};
+}
+
+module.exports = library;

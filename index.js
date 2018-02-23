@@ -49,16 +49,16 @@ function api(base, user, pass) {
 	user = sanitize(user);
 	pass = sanitize(pass);
 
-	// validate the base as a URI and make sure its using https
-	let url = new URL(base);
-	url.protocol = 'https:';
-	base = url.toString();
-
 	expect(base, 'A baseURI is required!')
 		.to.exist.and
 		.to.be.a('string')
 		.and.to.have.length.above(1)
 		.and.to.match(/api(-dvlp)?\.purlhub\.(com|local)/);
+
+	// validate the base as a URI and make sure its using https
+	let url = new URL(base);
+	url.protocol = 'https:';
+	base = url.toString();
 
 	expect(user, 'A login is required!')
 		.to.exist.and

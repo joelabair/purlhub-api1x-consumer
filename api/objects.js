@@ -28,8 +28,13 @@ function isPlainObject(o) {
 	return !!o && typeof o === 'object' && !Array.isArray(o);
 }
 
-// Accounts Nodes Object Endpoint
-module.exports = function(base, user, pass) {
+
+/**
+* API Accounts Nodes Objects sub-structure.
+* @kind member
+* @memberof Node
+*/
+function objects(base, user, pass) {
 
 	expect(base, 'A baseURI is required!')
 		.to.exist.and
@@ -290,4 +295,6 @@ module.exports = function(base, user, pass) {
 		save: save,
 		remove: remove
 	};
-};
+}
+
+module.exports = objects;

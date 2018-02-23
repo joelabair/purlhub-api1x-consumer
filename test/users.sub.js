@@ -25,7 +25,7 @@ module.exports = () => {
 	before(async () => {
 		account = await accounts.save(utac, account);
 		users = account.users;
-		await users.save('test@test.com', {password: '12345678', screenName: 'TEST'});
+		await users.save({login: 'test@test.com', password: '12345678', screenName: 'TEST'});
 	});
 
 	after(async () => {
@@ -104,20 +104,9 @@ module.exports = () => {
 
 	describe('save method', () => {
 
-		it('throws if an user name is not provided', async () => {
-			try {
-				let user = await users.save();
-				expect( user )
-					.to.not.exist;
-			} catch (e) {
-				expect(e.message)
-					.to.include('user name is required');
-			}
-		});
-
 		it('throws if some user data is not provided', async () => {
 			try {
-				let user = await users.save('new@test.com');
+				let user = await users.save();
 				expect( user )
 					.to.not.exist;
 			} catch (e) {
@@ -128,12 +117,13 @@ module.exports = () => {
 
 		it('throws if a password is not provided', async () => {
 			let data = {
+				login: 'new@test.com',
 				screenName: 'TEST',
 				timeZone: 'America/Denver',
 				enabled: true
 			};
 			try {
-				let user = await users.save('new@test.com', data);
+				let user = await users.save(data);
 				expect( user )
 					.to.not.exist;
 			} catch (e) {
@@ -147,13 +137,14 @@ module.exports = () => {
 
 		it('throws if a password is not long enough', async () => {
 			let data = {
-				screenName: 'TEST',
-				timeZone: 'America/Denver',
+				login: 'new@test.com',
 				password: '1234567',
-				enabled: true
+				enabled: true,
+				screenName: 'TEST',
+				timeZone: 'America/Denver'
 			};
 			try {
-				let user = await users.save('new@test.com', data);
+				let user = await users.save(data);
 				expect( user )
 					.to.not.exist;
 			} catch (e) {
@@ -167,12 +158,13 @@ module.exports = () => {
 
 		it('can save an user', async () => {
 			let user = {
+				login: 'new@test.com',
 				screenName: 'TEST',
 				timeZone: 'America/Denver',
 				password: '12345678',
 				enabled: true
 			};
-			user = await users.save('new@test.com', user);
+			user = await users.save(user);
 
 			expect( user )
 				.to.exist.and
@@ -216,12 +208,13 @@ module.exports = () => {
 
 		before(async () => {
 			let data = {
+				login: 'new@test.org',
 				screenName: 'TEST',
 				timeZone: 'America/Denver',
 				password: '12345678',
 				enabled: true
 			};
-			user = await users.save('new@test.org', data);
+			user = await users.save(data);
 		});
 
 		after(async () => {

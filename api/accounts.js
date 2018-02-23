@@ -26,9 +26,7 @@ function trimSlashes (data) {
 
 /**
  * API Accounts sub-structure
- *
  * @memberof API
- *
  */
 function accounts(base, user, pass) {
 	expect(base, 'A baseURI is required!')
@@ -59,6 +57,11 @@ function accounts(base, user, pass) {
 	 * A purlHub account instance.
 	 * @namespace Account
 	 * @type object
+	 *
+	 * @property {string} alias				The display name.
+	 * @property {boolean} enabled	The account state flag.
+	 * @property {string} timeZone		The account default time zone identifier.
+	 * @property {string} subscription	The account subscription class.
 	 */
 	const compose = function compose(data) {
 		if (!data || !data.accountName) {
@@ -73,8 +76,14 @@ function accounts(base, user, pass) {
 			users: require('./users.js')(_base, user, pass),
 			/**
 			* Save this account instance.
+			* @async
 			* @memberof Account
 			* @returns {Promise<Account,HTTPError>}	A promise that resolves to the saved purlHub {@link #account|Account} (w/ instance methods).
+			*
+			* @example
+			* account.save()
+			* 	.catch(console.error)
+			* 	.then(console.log);
 			*/
 			save: async function() {
 				let name = this.accountName || null;
@@ -82,8 +91,14 @@ function accounts(base, user, pass) {
 			},
 			/**
 			* Remove this account instance.
+			* @async
 			* @memberof Account
 			* @returns {Promise<Account,HTTPError>}	A promise that resolves to the removed purlHub {@link #account|Account} (static object w/ out instance methods).
+			*
+			* @example
+			* account.remove()
+			* 	.catch(console.error)
+			* 	.then(console.log);
 			*/
 			remove: async function() {
 				let name = this.accountName || null;
@@ -97,6 +112,11 @@ function accounts(base, user, pass) {
 	* Gets an account.
 	* @param {string} name	A purlHub account name.
 	* @returns {Promise<Account,HTTPError>}	A promise that resolves to a purlHub {@link #account|Account} instance.
+	*
+	* @example
+	* let account = api.accounts.get('my-acnt')
+	* 	.catch(console.error)
+	* 	.then(console.log);
 	*/
 	const get = async function get(name) {
 		name = trimSlashes(name);
@@ -113,8 +133,13 @@ function accounts(base, user, pass) {
 	};
 
 	/**
-	* Lists some accounts.
+	* Lists some accounts (ACL privileged method).
 	* @returns {Promise<Account,HTTPError>}	A promise that resolves to an array of purlHub {@link #account|Account} object instances.
+	*
+	* @example
+	* let account = api.accounts.list()
+	* 	.catch(console.error)
+	* 	.then(console.log);
 	*/
 	const list = async function list() {
 		debug('Scanning Accounts...');
@@ -128,6 +153,11 @@ function accounts(base, user, pass) {
 	* @param {string} name	A purlHub account name.
 	* @param {object} data	A purlHub {@link #account|Account} object.
 	* @returns {Promise<Account,HTTPError>}	A promise that resolves to a purlHub {@link #account|Account} instance.
+	*
+	* @example
+	* let account = api.accounts.save('my-acnt', {alias: 'My display name', timeZone: 'America/Denver'})
+	* 	.catch(console.error)
+	* 	.then(console.log);
 	*/
 	const save = async function save(name, data) {
 		name = trimSlashes(name);
@@ -159,6 +189,11 @@ function accounts(base, user, pass) {
 	* @async
 	* @param {string} name	A purlHub account name.
 	* @returns {Promise<Account,HTTPError>}	A promise that resolves to the removed purlHub {@link #account|Account} (static object w/ out instance methods).
+	*
+	* @example
+	* let account = api.accounts.remove('my-acnt')
+	* 	.catch(console.error)
+	* 	.then(console.log);
 	*/
 	const remove = async function remove(name) {
 		name = trimSlashes(name);
