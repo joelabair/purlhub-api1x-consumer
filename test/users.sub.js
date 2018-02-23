@@ -17,13 +17,14 @@ module.exports = () => {
 	const utac = 'random-test-'+(new Date()).getTime();
 
 	let account = {
+		accountName: utac,
 		alias: 'test',
 		timeZone: 'America/Denver',
 		enabled: true
 	};
 
 	before(async () => {
-		account = await accounts.save(utac, account);
+		account = await accounts.save(account);
 		users = account.users;
 		await users.save({login: 'test@test.com', password: '12345678', screenName: 'TEST'});
 	});
@@ -127,11 +128,17 @@ module.exports = () => {
 				expect( user )
 					.to.not.exist;
 			} catch (e) {
-				expect(e.status)
-					.to.equal(400);
-
 				expect(e.message)
-					.to.include('Bad Request');
+					.to.include('Some data (obj) is required');
+			}
+			data.password = '';
+			try {
+				let user = await users.save(data);
+				expect( user )
+					.to.not.exist;
+			} catch (e) {
+				expect(e.message)
+					.to.include('password is required');
 			}
 		});
 

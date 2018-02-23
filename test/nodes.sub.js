@@ -17,13 +17,14 @@ module.exports = () => {
 	const tac = 'random-test-'+(new Date()).getTime();
 
 	let account = {
+		accountName: tac,
 		alias: 'test',
 		timeZone: 'America/Denver',
 		enabled: true
 	};
 
 	before(async () => {
-		account = await accounts.save(tac, account);
+		account = await accounts.save(account);
 		nodes = account.nodes;
 	});
 
@@ -104,35 +105,36 @@ module.exports = () => {
 
 	describe('save method', () => {
 
-		it('throws if an node path is not provided', async () => {
+		it('throws if some node data is not provided', async () => {
 			try {
 				let node = await nodes.save();
 				expect( node )
 					.to.not.exist;
 			} catch (e) {
 				expect(e.message)
-					.to.include('node path is required');
+					.to.include('A node (obj) is required');
 			}
 		});
 
-		it('throws if some node data is not provided', async () => {
+		it('throws if an nodePath is not provided', async () => {
 			try {
-				let node = await nodes.save('test-path');
+				let node = await nodes.save({});
 				expect( node )
 					.to.not.exist;
 			} catch (e) {
 				expect(e.message)
-					.to.include('Some data (obj) is required');
+					.to.include('A node (obj) is required');
 			}
 		});
 
 		it('can save an node', async () => {
 			let node = {
+				nodePath: 'test-path',
+				nodeClass: 'test',
 				status: 'draft',
-				description: 'A test node',
-				classification: 'test'
+				description: 'A test node'
 			};
-			node = await nodes.save('test-path', node);
+			node = await nodes.save(node);
 			expect( node )
 				.to.exist.and
 				.to.be.a('object').and
@@ -173,18 +175,19 @@ module.exports = () => {
 	describe('instance', () => {
 
 		let node = {
+			nodePath: 'instance-test-path',
+			nodeClass: 'test',
 			status: 'draft',
 			description: 'A test node',
-			classification: 'test'
 		};
 
 		before(async () => {
-			node = await nodes.save('test-path-instance', node);
+			node = await nodes.save(node);
 		});
 
 		after(async () => {
 			try {
-				await nodes.remove('test-path-instance');
+				await nodes.remove('instance-test-path');
 			} catch (ignore) { /* intentionally ignored */ }
 		});
 
@@ -216,7 +219,7 @@ module.exports = () => {
 			it('removes itself', async () => {
 				await node.remove();
 				try {
-					let node = await nodes.get('test-path-instance-modified');
+					let node = await nodes.get('instance-test-path-modified');
 					expect( node )
 						.to.not.exist;
 				} catch (e) {

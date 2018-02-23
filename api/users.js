@@ -1,6 +1,7 @@
 "use strict";
 
-const debug = require('debug')('phRestClient-v1.0:accounts.users');
+/* global debugPrefix */
+const debug = require('debug')(debugPrefix+':accounts.users');
 const resdbg = require('debug')(debugPrefix+':accounts.users-response');
 
 const expect = require('chai').expect;
@@ -63,6 +64,9 @@ function users(base, user, pass) {
 
 		let descriptor = Object.getOwnPropertyDescriptors(data);
 
+		descriptor.passwd.configurable = false;
+		descriptor.passwd.enumerable = false;
+
 		descriptor.password = {
 			get: function() {
 				return this['passwd'];
@@ -71,7 +75,7 @@ function users(base, user, pass) {
 				this['passwd'] = v;
 			},
 			configurable: false,
-			enumerable: false
+			enumerable: true
 		};
 
 		return Object.create({
@@ -152,7 +156,11 @@ function users(base, user, pass) {
 	* @returns {Promise<User,HTTPError>}	A promise that resolves to a purlHub {@link #user|User} instance.
 	*
 	* @example
-	* let user = account.users.save({login: 'user@example.com', password: '12345678', timeZone: 'America/Denver'})
+	* let user = account.users.save({
+	* 		login: 'user@example.com',
+	* 		password: '12345678',
+	* 		timeZone: 'America/Denver'
+	* 	})
 	* 	.catch(console.error)
 	* 	.then(console.log);
 	*/
@@ -160,25 +168,42 @@ function users(base, user, pass) {
 		expect(data, 'Some data (obj) is required!')
 			.to.exist.and
 			.to.be.a('object').and
-			.to.contain.any.keys("login", "roles", "passwd", "enabled", "locked", "timeZone", "screenName", "password", "newLogin");
+			.to.contain.all.keys("login", "password");
+
+		expect(data, 'Some data (obj) is required!')
+			.to.exist.and
+			.to.be.a('object').and
+			.to.contain.any.keys("login", "password", "roles", "enabled", "locked", "timeZone", "screenName", "reference");
+
+		expect(data.login, 'A login is required!')
+			.to.be.a('string')
+			.and.to.have.length.above(1);
+
+		expect(data.password, 'A password is required!')
+			.to.be.a('string')
+			.and.to.have.length.above(1);
 
 		let _data = {};
 
-		["login", "roles", "passwd", "enabled", "locked", "timeZone", "screenName", "password", "newLogin"].forEach(n => {
+		["login", "password", "roles", "enabled", "locked", "timeZone", "screenName", "reference"].forEach(n => {
 			if (n === 'roles') {
 				if (Array.isArray(data[n])) {
-					data[n] = data[n].join(',');
+					_data[n] = data[n].join(',');
 				}
+			} else {
+				if (data[n]) _data[n] = data[n];
 			}
-			if (data[n]) _data[n] = data[n];
 		});
 
-		if (data.id !== data.login) {
+
+		let name = ('id' in data) ? data.id : data.login;
+
+		if ('id' in data && data.id !== data.login) {
 			_data.newLogin = data.login;
 		}
 
-		debug('Saving User [%s] w/ %O', data.id, _data);
-		let res = await req.post(base+'/users/'+data.id).send(_data);
+		debug('Saving User [%s] w/ %O', name, _data);
+		let res = await req.post(base+'/users/'+name).send(_data);
 		resdbg('%O', res.body.response.data);
 		return compose(res.body.response.data);
 	};

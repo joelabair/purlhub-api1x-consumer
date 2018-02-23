@@ -85,35 +85,25 @@ module.exports = () => {
 
 	describe('save method', () => {
 
-		it('throws if an account name is not provided', async () => {
+		it('throws if some account data is not provided', async () => {
 			try {
 				let account = await accounts.save();
 				expect( account )
 					.to.not.exist;
 			} catch (e) {
 				expect(e.message)
-					.to.include('account name is required');
-			}
-		});
-
-		it('throws if some account data is not provided', async () => {
-			try {
-				let account = await accounts.save(tac);
-				expect( account )
-					.to.not.exist;
-			} catch (e) {
-				expect(e.message)
-					.to.include('Some data (obj) is required');
+					.to.include('account (obj) is required');
 			}
 		});
 
 		it('can save an account', async () => {
 			let account = {
+				accountName: tac,
 				alias: 'test',
 				timeZone: 'America/Denver',
 				enabled: true
 			};
-			account = await accounts.save(tac, account);
+			account = await accounts.save(account);
 			expect( account )
 				.to.exist.and
 				.to.be.a('object').and
@@ -156,13 +146,14 @@ module.exports = () => {
 		const itac = 'random-test-'+(new Date()).getTime();
 
 		let account = {
+			accountName: itac,
 			alias: 'test',
 			timeZone: 'America/Denver',
 			enabled: true
 		};
 
 		before(async () => {
-			account = await accounts.save(itac, account);
+			account = await accounts.save(account);
 		});
 
 		after(async () => {

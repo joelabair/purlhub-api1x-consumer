@@ -1,9 +1,9 @@
 "use strict";
 
 // jshint expr:true
-
-const debug = require('debug')('phRestClient-v1.0:accounts.nodes.objects');
-const resdbg = require('debug')('phRestClient-v1.0:accounts.nodes.objects-response');
+/* global debugPrefix */
+const debug = require('debug')(debugPrefix+':accounts.nodes.objects');
+const resdbg = require('debug')(debugPrefix+':accounts.nodes.objects-response');
 
 const md5 = require('md5');
 const expect = require('chai').expect;

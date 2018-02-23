@@ -1,17 +1,27 @@
 "use strict";
 
-const debug = require('debug')('phRestClient-v1.0:accounts.nodes');
-const resdbg = require('debug')('phRestClient-v1.0:accounts.nodes-response');
+/* global debugPrefix */
+const debug = require('debug')(debugPrefix+':accounts.nodes');
+const resdbg = require('debug')(debugPrefix+':accounts.nodes-response');
 
+const path = require('path');
+const validator = require('validator');
 const expect = require('chai').expect;
 const request = require('superagent');
 require('superagent-retry')(request);
 
-function trimSlashes (path) {
-	if (path) {
-		return String(path).trim(path).replace(/(^\/|\/$)/g,'');
+function sanitize(data) {
+	data = validator.toString(data);
+	data = validator.stripLow(data);
+	data = validator.trim(data);
+	return data;
+}
+
+function trimSlashes (data) {
+	if (data) {
+		return validator.trim(sanitize(data), '/');
 	}
-	return path;
+	return data;
 }
 
 
@@ -46,15 +56,17 @@ function nodes(base, user, pass) {
 		.auth(user, pass)
 		.retry(3);
 
+	const rnpSym = Symbol("RealNodePath");
+
 	/**
 	 * A purlHub account child node instance.
 	 * @namespace Node
 	 * @type object
 	 *
-	 * @property {string} nodeName		The node's label.
+	 * @property {string} nodeName		The node's literal name.
+	 * @property {string} nodeClass		An arbitrary node type classification.
 	 * @property {string} nodePath			The node's hierarchical path including its name.
 	 * @property {string} description		A long description.
-	 * @property {string} classification	An arbitrary node type classification.
 	 * @property {string} status				The state (live|draft) indicating the default event tracking mode.
 	 */
 	const compose = function compose(data) {
@@ -71,15 +83,32 @@ function nodes(base, user, pass) {
 
 		let descriptor = Object.getOwnPropertyDescriptors(data);
 
-		descriptor.classification = {
+		descriptor[rnpSym] = {
+			value: path.parse(descriptor.nodePath.value),
+			writable: true
+		};
+
+		descriptor.nodeName = {
 			get: function() {
-				return this['nodeClass'];
+				return this[rnpSym].base;
 			},
 			set: function(v) {
-				this['nodeClass'] = v;
+				this[rnpSym].base = path.parse(v).base;
 			},
-			configurable: false,
-			enumerable: false
+			enumerable: true,
+			configurable: true
+		};
+
+		descriptor.nodePath = {
+			get: function() {
+				return path.format(this[rnpSym]);
+			},
+			set: function(v) {
+				// newName can only set the basename component of the path
+				this[rnpSym].base = path.parse(v).base;
+			},
+			enumerable: true,
+			configurable: true
 		};
 
 		return Object.create({
@@ -96,8 +125,7 @@ function nodes(base, user, pass) {
 			* 	.then(console.log);
 			*/
 			save: async function() {
-				let name = this.id || null;
-				return save(name, this);
+				return save(this);
 			},
 			/**
 			* Remove this node instance.
@@ -111,11 +139,10 @@ function nodes(base, user, pass) {
 			* 	.then(console.log);
 			*/
 			remove: async function() {
-				let name = this.id || null;
-				return remove(name);
+				return remove(this.id);
 			},
-			id: data.nodePath,
-			original: data.nodeName
+			// newName can only set the basename component of the path
+			id: data.nodeName
 		},
 		descriptor);
 	};
@@ -165,36 +192,45 @@ function nodes(base, user, pass) {
 	/**
 	* Saves a node.
 	* @async
-	* @param {string} path		A node path.
 	* @param {object} data	A purlHub {@link #node|Node} object.
 	* @returns {Promise<Node,HTTPError>}	A promise that resolves to a purlHub {@link #node|Node} instance.
 	*
 	* @example
-	* let node = account.nodes.save('/default/Sales', {password: '12345678', timeZone: 'America/Denver'})
-	* 	.catch(console.error)
-	* 	.then(console.log);
+	* let node = account.nodes.save({
+	*     nodePath: '/default/Sales',
+	*     nodeClass: 'campaign',
+	*     description: 'sales node',
+	*     status: 'live'
+	*   })
+	*   .catch(console.error)
+	* 	 .then(console.log);
 	*/
-	const save = async function save(path, data) {
-		path = trimSlashes(path);
-
-		expect(path, 'A node path is required!')
-			.to.exist.and
-			.to.be.a('string')
-			.and.to.have.length.above(1);
-
-		expect(data, 'Some data (obj) is required!')
+	const save = async function save(node) {
+		expect(node, 'A node (obj) is required!')
 			.to.exist.and
 			.to.be.a('object').and
-			.to.contain.any.keys("classification", "status", "description", "newName");
+			.to.contain.all.keys("nodePath", "nodeClass");
+
+		expect(node, 'a node (obj) is required!')
+			.to.exist.and
+			.to.be.a('object').and
+			.to.contain.any.keys("nodePath", "nodeClass", "nodeName", "status", "description");
 
 		let _data = {};
 
-		if (data.original !== data.nodeName) {
-			data.newName = data.nodeName;
+		let path = ('id' in node) ? trimSlashes(node.id) : trimSlashes(node.nodePath);
+
+		// newName can only set the basename component of the path
+		if ('id' in node && node.id !== node.nodeName) {
+			_data.newName = node.nodeName;
 		}
 
-		["classification", "status", "description", "newName"].forEach(n => {
-			if (data[n]) _data[n] = data[n];
+		["classification", "status", "description"].forEach(n => {
+			if (n === 'classification' && node['nodeClass']) {
+				_data[n] = node['nodeClass'];
+			} else {
+				if (node[n]) _data[n] = node[n];
+			}
 		});
 
 		debug('Saving Node [%s] w/ %O', path, _data);

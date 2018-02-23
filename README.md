@@ -50,7 +50,7 @@ let api = API('https://api.purlhub.com', 'user@example.com', '12345678');
     * [.accounts](#API.accounts)
         * [~get(name)](#API.accounts..get) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
         * [~list()](#API.accounts..list) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-        * [~save(name, data)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+        * [~save(account)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
         * [~remove(name)](#API.accounts..remove) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 
 <a name="API.accounts"></a>
@@ -63,7 +63,7 @@ API Accounts sub-structure
 * [.accounts](#API.accounts)
     * [~get(name)](#API.accounts..get) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
     * [~list()](#API.accounts..list) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-    * [~save(name, data)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+    * [~save(account)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
     * [~remove(name)](#API.accounts..remove) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 
 <a name="API.accounts..get"></a>
@@ -81,8 +81,8 @@ Gets an account.
 **Example**  
 ```js
 let account = api.accounts.get('my-acnt')
-	.catch(console.error)
-	.then(console.log);
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="API.accounts..list"></a>
 
@@ -94,12 +94,12 @@ Lists some accounts (ACL privileged method).
 **Example**  
 ```js
 let account = api.accounts.list()
-	.catch(console.error)
-	.then(console.log);
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="API.accounts..save"></a>
 
-#### accounts~save(name, data) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+#### accounts~save(account) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
 Saves an account.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
@@ -107,14 +107,17 @@ Saves an account.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>string</code> | A purlHub account name. |
-| data | <code>object</code> | A purlHub [Account](#account) object. |
+| account | <code>object</code> | A purlHub [Account](#account) object. |
 
 **Example**  
 ```js
-let account = api.accounts.save('my-acnt', {alias: 'My display name', timeZone: 'America/Denver'})
-	.catch(console.error)
-	.then(console.log);
+let account = api.accounts.save({
+    accountName: 'my-acnt',
+    alias: 'My display name',
+    timeZone: 'America/Denver'
+  })
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="API.accounts..remove"></a>
 
@@ -131,8 +134,8 @@ Removes an account.
 **Example**  
 ```js
 let account = api.accounts.remove('my-acnt')
-	.catch(console.error)
-	.then(console.log);
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="Account"></a>
 
@@ -154,12 +157,12 @@ A purlHub account instance.
     * [.library](#Account.library)
         * [~get(context, filename, [options])](#Account.library..get) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
         * [~list(context, [directory], [options])](#Account.library..list) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-        * [~save(context, filename, data, [options])](#Account.library..save) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+        * [~save(asset, [options])](#Account.library..save) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
         * [~remove(context, filename, [options])](#Account.library..remove) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
     * [.nodes](#Account.nodes)
         * [~get(path)](#Account.nodes..get) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
         * [~list()](#Account.nodes..list) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-        * [~save(path, data)](#Account.nodes..save) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+        * [~save(data)](#Account.nodes..save) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
         * [~remove(name)](#Account.nodes..remove) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
     * [.users](#Account.users)
         * [~get(name)](#Account.users..get) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
@@ -179,7 +182,7 @@ API Accounts Library (asset library) sub-structure.
 * [.library](#Account.library)
     * [~get(context, filename, [options])](#Account.library..get) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
     * [~list(context, [directory], [options])](#Account.library..list) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-    * [~save(context, filename, data, [options])](#Account.library..save) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+    * [~save(asset, [options])](#Account.library..save) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
     * [~remove(context, filename, [options])](#Account.library..remove) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
 
 <a name="Account.library..get"></a>
@@ -199,8 +202,8 @@ Gets a library asset.
 **Example**  
 ```js
 let asset = account.library.get('templates','/email/message.txt')
-	.catch(console.error)
-	.then(console.log);
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="Account.library..list"></a>
 
@@ -219,12 +222,12 @@ Lists all assets.
 **Example**  
 ```js
 let assets = account.library.list('templates')
-	.catch(console.error)
-	.then(console.log);
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="Account.library..save"></a>
 
-#### library~save(context, filename, data, [options]) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+#### library~save(asset, [options]) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
 Saves a library asset.
 
 **Kind**: inner method of [<code>library</code>](#Account.library)  
@@ -232,16 +235,21 @@ Saves a library asset.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| context | <code>string</code> | The asset's context (images|documents|videos|layouts|sections|templates). |
-| filename | <code>string</code> | A asset filename including any path. |
-| data | <code>object</code> | A purlHub [Asset](#asset) instance. |
+| asset | <code>object</code> | A purlHub [Asset](#asset) instance. |
 | [options] | <code>object</code> | An optional object of request options. |
 
 **Example**  
 ```js
-let asset = account.library.save('templates','/email/message.txt', {...})
-	.catch(console.error)
-	.then(console.log);
+let asset = account.library.save({
+    filename: 'some/file.txt',
+    metadata: {
+      context: 'template',
+      description: 'This is a test'
+    },
+    contentType: 'text/plain'
+  })
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="Account.library..remove"></a>
 
@@ -260,8 +268,8 @@ Removes a asset.
 **Example**  
 ```js
 let asset = account.library.remove('templates','/email/message.txt')
-	.catch(console.error)
-	.then(console.log);
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="Account.nodes"></a>
 
@@ -273,7 +281,7 @@ API Accounts Nodes (child nodes) sub-structure.
 * [.nodes](#Account.nodes)
     * [~get(path)](#Account.nodes..get) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
     * [~list()](#Account.nodes..list) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-    * [~save(path, data)](#Account.nodes..save) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+    * [~save(data)](#Account.nodes..save) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
     * [~remove(name)](#Account.nodes..remove) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
 
 <a name="Account.nodes..get"></a>
@@ -309,7 +317,7 @@ let node = account.nodes.list()
 ```
 <a name="Account.nodes..save"></a>
 
-#### nodes~save(path, data) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+#### nodes~save(data) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
 Saves a node.
 
 **Kind**: inner method of [<code>nodes</code>](#Account.nodes)  
@@ -317,14 +325,18 @@ Saves a node.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| path | <code>string</code> | A node path. |
 | data | <code>object</code> | A purlHub [Node](#node) object. |
 
 **Example**  
 ```js
-let node = account.nodes.save('/default/Sales', {password: '12345678', timeZone: 'America/Denver'})
-	.catch(console.error)
-	.then(console.log);
+let node = account.nodes.save({
+    nodePath: '/default/Sales',
+    nodeClass: 'campaign',
+    description: 'sales node',
+    status: 'live'
+  })
+  .catch(console.error)
+	 .then(console.log);
 ```
 <a name="Account.nodes..remove"></a>
 
@@ -402,7 +414,11 @@ Saves a user.
 
 **Example**  
 ```js
-let user = account.users.save({login: 'user@example.com', password: '12345678', timeZone: 'America/Denver'})
+let user = account.users.save({
+		login: 'user@example.com',
+		password: '12345678',
+		timeZone: 'America/Denver'
+	})
 	.catch(console.error)
 	.then(console.log);
 ```
@@ -434,8 +450,8 @@ Save this account instance.
 **Example**  
 ```js
 account.save()
-	.catch(console.error)
-	.then(console.log);
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="Account.remove"></a>
 
@@ -447,8 +463,8 @@ Remove this account instance.
 **Example**  
 ```js
 account.remove()
-	.catch(console.error)
-	.then(console.log);
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="Asset"></a>
 
@@ -483,8 +499,8 @@ Save this asset instance.
 **Example**  
 ```js
 asset.save()
-	.catch(console.error)
-	.then(console.log);
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="Asset.remove"></a>
 
@@ -496,8 +512,8 @@ Remove this asset instance.
 **Example**  
 ```js
 asset.remove()
-	.catch(console.error)
-	.then(console.log);
+  .catch(console.error)
+  .then(console.log);
 ```
 <a name="Node"></a>
 
@@ -509,10 +525,10 @@ A purlHub account child node instance.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| nodeName | <code>string</code> | The node's label. |
+| nodeName | <code>string</code> | The node's literal name. |
+| nodeClass | <code>string</code> | An arbitrary node type classification. |
 | nodePath | <code>string</code> | The node's hierarchical path including its name. |
 | description | <code>string</code> | A long description. |
-| classification | <code>string</code> | An arbitrary node type classification. |
 | status | <code>string</code> | The state (live|draft) indicating the default event tracking mode. |
 
 

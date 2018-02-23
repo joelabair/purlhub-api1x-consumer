@@ -18,11 +18,12 @@ module.exports = () => {
 
 	before(async () => {
 		let account = {
+			accountName: tac,
 			alias: 'test',
 			timeZone: 'America/Denver',
 			enabled: true
 		};
-		account = await accounts.save(tac, account);
+		account = await accounts.save(account);
 		library = account.library;
 	});
 
@@ -94,21 +95,31 @@ module.exports = () => {
 	});
 
 	describe('save method', () => {
-
-		it('throws if a valid context is not provided', async () => {
+		it('throws if some file data is not provided', async () => {
 			try {
 				let file = await library.save();
 				expect( file )
 					.to.not.exist;
 			} catch (e) {
 				expect(e.message)
-					.to.include('context is required');
+					.to.include('asset (obj) is required');
+			}
+		});
+
+		it('throws if a valid context is not provided', async () => {
+			try {
+				let file = await library.save({filename: 'test', metadata: {context: ""}, contentType: 'text/plain'});
+				expect( file )
+					.to.not.exist;
+			} catch (e) {
+				expect(e.message)
+					.to.include('valid context is required');
 			}
 		});
 
 		it('throws if a filename is not provided', async () => {
 			try {
-				let file = await library.save('templates');
+				let file = await library.save({filename:'', metadata: {context: "image"}, contentType: 'text/plain'});
 				expect( file )
 					.to.not.exist;
 			} catch (e) {
@@ -117,21 +128,12 @@ module.exports = () => {
 			}
 		});
 
-		it('throws if some file data is not provided', async () => {
-			try {
-				let file = await library.save('templates', 'some-test');
-				expect( file )
-					.to.not.exist;
-			} catch (e) {
-				expect(e.message)
-					.to.include('Some data (obj) is required');
-			}
-		});
-
 		it('can save an file', async () => {
 			let file = {
+				filename: 'mocha-test.txt',
 				contentType: 'text/plain',
 				metadata: {
+					context: 'templates',
 					description: 'A test template',
 					author: 'test@test.com',
 					sharing: ['__ALL__'],
@@ -141,7 +143,7 @@ module.exports = () => {
 					testingThis: true
 				}
 			};
-			file = await library.save('templates', 'mocha-test.txt', file);
+			file = await library.save(file);
 			expect( file )
 				.to.exist.and
 				.to.be.a('object').and
@@ -212,8 +214,10 @@ module.exports = () => {
 
 		before(async () => {
 			file = {
+				filename: 'mocha-test-instance.txt',
 				contentType: 'text/plain',
 				metadata: {
+					context: 'templates',
 					description: 'A test template',
 					author: 'test@test.com',
 					sharing: ['__ALL__'],
@@ -224,7 +228,7 @@ module.exports = () => {
 				},
 				utf8Content: 'one big test'
 			};
-			file = await library.save('templates', 'mocha-test-instance.txt', file);
+			file = await library.save(file);
 		});
 
 		after(async () => {

@@ -9,12 +9,12 @@ const expect = require('chai').expect;
 const request = require('superagent');
 require('superagent-retry')(request);
 
-var sanitize = function sanitize(data) {
+function sanitize(data) {
 	data = validator.toString(data);
 	data = validator.stripLow(data);
 	data = validator.trim(data);
 	return data;
-};
+}
 
 function trimSlashes (data) {
 	if (data) {
@@ -83,12 +83,11 @@ function accounts(base, user, pass) {
 			*
 			* @example
 			* account.save()
-			* 	.catch(console.error)
-			* 	.then(console.log);
+			*   .catch(console.error)
+			*   .then(console.log);
 			*/
 			save: async function() {
-				let name = this.accountName || null;
-				return save(name, this);
+				return save(this);
 			},
 			/**
 			* Remove this account instance.
@@ -98,12 +97,11 @@ function accounts(base, user, pass) {
 			*
 			* @example
 			* account.remove()
-			* 	.catch(console.error)
-			* 	.then(console.log);
+			*   .catch(console.error)
+			*   .then(console.log);
 			*/
 			remove: async function() {
-				let name = this.accountName || null;
-				return remove(name);
+				return remove(this.accountName);
 			}
 		},
 		Object.getOwnPropertyDescriptors(data));
@@ -116,8 +114,8 @@ function accounts(base, user, pass) {
 	*
 	* @example
 	* let account = api.accounts.get('my-acnt')
-	* 	.catch(console.error)
-	* 	.then(console.log);
+	*   .catch(console.error)
+	*   .then(console.log);
 	*/
 	const get = async function get(name) {
 		name = trimSlashes(name);
@@ -139,8 +137,8 @@ function accounts(base, user, pass) {
 	*
 	* @example
 	* let account = api.accounts.list()
-	* 	.catch(console.error)
-	* 	.then(console.log);
+	*   .catch(console.error)
+	*   .then(console.log);
 	*/
 	const list = async function list() {
 		debug('Scanning Accounts...');
@@ -151,32 +149,40 @@ function accounts(base, user, pass) {
 
 	/**
 	* Saves an account.
-	* @param {string} name	A purlHub account name.
-	* @param {object} data	A purlHub {@link #account|Account} object.
+	* @param {object} account	A purlHub {@link #account|Account} object.
 	* @returns {Promise<Account,HTTPError>}	A promise that resolves to a purlHub {@link #account|Account} instance.
 	*
 	* @example
-	* let account = api.accounts.save('my-acnt', {alias: 'My display name', timeZone: 'America/Denver'})
-	* 	.catch(console.error)
-	* 	.then(console.log);
+	* let account = api.accounts.save({
+	*     accountName: 'my-acnt',
+	*     alias: 'My display name',
+	*     timeZone: 'America/Denver'
+	*   })
+	*   .catch(console.error)
+	*   .then(console.log);
 	*/
-	const save = async function save(name, data) {
-		name = trimSlashes(name);
-
-		expect(name, 'A account name is required!')
+	const save = async function save(account) {
+		expect(account, 'An account (obj) is required!')
 			.to.exist.and
+			.to.be.a('object').and
+			.to.contain.all.keys("accountName").and
+			.to.contain.any.keys("alias", "enabled", "timeZone", "subscription");
+
+		expect(account.accountName, 'A account name is required!')
 			.to.be.a('string')
 			.and.to.have.length.above(1);
 
-		expect(data, 'Some data (obj) is required!')
-			.to.exist.and
-			.to.be.a('object').and
-			.to.contain.any.keys("alias", "enabled", "timeZone", "subscription");
+		if ('alias' in account) expect(account.alias).to.be.a('string');
+		if ('enabled' in account) expect(account.enabled).to.be.a('boolean');
+		if ('timeZone' in account) expect(account.timeZone).to.be.a('string');
+		if ('subscription' in account) expect(account.subscription).to.be.a('string');
+
+		let name = trimSlashes(account.accountName);
 
 		let _data = {};
 
-		["alias", "enabled", "timeZone", "subscription"].forEach(n => {
-			if (data[n]) _data[n] = data[n];
+		["accountName", "alias", "enabled", "timeZone", "subscription"].forEach(n => {
+			if (account[n]) _data[n] = account[n];
 		});
 
 		debug('Saving Account [%s] w/ %O', name, _data);
@@ -193,8 +199,8 @@ function accounts(base, user, pass) {
 	*
 	* @example
 	* let account = api.accounts.remove('my-acnt')
-	* 	.catch(console.error)
-	* 	.then(console.log);
+	*   .catch(console.error)
+	*   .then(console.log);
 	*/
 	const remove = async function remove(name) {
 		name = trimSlashes(name);

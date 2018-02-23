@@ -9,12 +9,12 @@ const validator = require('validator');
 const expect = require('chai').expect;
 const { URL } = require('url');
 
-var sanitize = function sanitize(data) {
+function sanitize(data) {
 	data = validator.toString(data);
 	data = validator.stripLow(data);
 	data = validator.trim(data);
 	return data;
-};
+}
 
 function trimSlashes (data) {
 	if (data) {
@@ -45,7 +45,6 @@ function trimSlashes (data) {
  * let api = API('https://api.purlhub.com', 'user@example.com', '12345678');
  */
 function api(base, user, pass) {
-	base = trimSlashes(base);
 	user = sanitize(user);
 	pass = sanitize(pass);
 
@@ -59,6 +58,7 @@ function api(base, user, pass) {
 	let url = new URL(base);
 	url.protocol = 'https:';
 	base = url.toString();
+	base = trimSlashes(base);
 
 	expect(user, 'A login is required!')
 		.to.exist.and

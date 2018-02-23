@@ -1,19 +1,20 @@
 "use strict";
 
-const debug = require('debug')('phRestClient-v1.0:accounts.library');
-const resdbg = require('debug')('phRestClient-v1.0:accounts.library-response');
+/* global debugPrefix */
+const debug = require('debug')(debugPrefix+':accounts.library');
+const resdbg = require('debug')(debugPrefix+':accounts.library-response');
 
 const validator = require('validator');
 const expect = require('chai').expect;
 const request = require('superagent');
 require('superagent-retry')(request);
 
-var sanitize = function sanitize(data) {
+function sanitize(data) {
 	data = validator.toString(data);
 	data = validator.stripLow(data);
 	data = validator.trim(data);
 	return data;
-};
+}
 
 function trimSlashes (data) {
 	if (data) {
@@ -91,14 +92,11 @@ function library(base, user, pass) {
 			*
 			* @example
 			* asset.save()
-			* 	.catch(console.error)
-			* 	.then(console.log);
+			*   .catch(console.error)
+			*   .then(console.log);
 			*/
 			save: async function() {
-				let name = this.id || null;
-				let metadata = this.metadata || {};
-				let context = metadata.context || null;
-				return save(context, name, this);
+				return save(this);
 			},
 			/**
 			* Remove this asset instance.
@@ -108,8 +106,8 @@ function library(base, user, pass) {
 			*
 			* @example
 			* asset.remove()
-			* 	.catch(console.error)
-			* 	.then(console.log);
+			*   .catch(console.error)
+			*   .then(console.log);
 			*/
 			remove: async function() {
 				let name = this.id || null;
@@ -132,8 +130,8 @@ function library(base, user, pass) {
 	*
 	* @example
 	* let asset = account.library.get('templates','/email/message.txt')
-	* 	.catch(console.error)
-	* 	.then(console.log);
+	*   .catch(console.error)
+	*   .then(console.log);
 	*/
 	const get = async function get(context, filename, options) {
 		context = pluralize(trimSlashes(context));
@@ -172,8 +170,8 @@ function library(base, user, pass) {
 	*
 	* @example
 	* let assets = account.library.list('templates')
-	* 	.catch(console.error)
-	* 	.then(console.log);
+	*   .catch(console.error)
+	*   .then(console.log);
 	*/
 	const list = async function list(context, directory, options) {
 		context = pluralize(trimSlashes(context));
@@ -215,20 +213,45 @@ function library(base, user, pass) {
 	/**
 	* Saves a library asset.
 	* @async
-	* @param {string} context		The asset's context (images|documents|videos|layouts|sections|templates).
-	* @param {string} filename		A asset filename including any path.
-	* @param {object} data			A purlHub {@link #asset|Asset} instance.
+	* @param {object} asset			A purlHub {@link #asset|Asset} instance.
 	* @param {object} [options]		An optional object of request options.
 	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to a purlHub {@link #asset|Asset} instance.
 	*
 	* @example
-	* let asset = account.library.save('templates','/email/message.txt', {...})
-	* 	.catch(console.error)
-	* 	.then(console.log);
+	* let asset = account.library.save({
+	*     filename: 'some/file.txt',
+	*     metadata: {
+	*       context: 'template',
+	*       description: 'This is a test'
+	*     },
+	*     contentType: 'text/plain'
+	*   })
+	*   .catch(console.error)
+	*   .then(console.log);
 	*/
-	const save = async function save(context, filename, data, options) {
-		context = pluralize(trimSlashes(context));
-		filename = trimSlashes(filename);
+	const save = async function save(asset, options) {
+		expect(asset, 'A valid asset (obj) is required!')
+			.to.exist.and
+			.to.be.a('object').and
+			.to.contain.all.keys("filename", "metadata", "contentType");
+
+		expect(asset, 'A valid asset (obj) is required!')
+			.to.exist.and
+			.to.be.a('object').and
+			.to.contain.any.keys( "filename", "metadata", "contentType", "head", "version", "deleted", "length", "md5", "aliases", "extra" );
+
+		expect(asset.metadata, 'Some metadata is required!')
+			.to.exist.and
+			.to.be.a('object').and
+			.to.contain.all.keys("context");
+
+		expect(asset.metadata, 'Some metadata is required!')
+			.to.exist.and
+			.to.be.a('object').and
+			.to.contain.any.keys("accountName", "context", "author", "description", "sharing", "tags");
+
+		let context = pluralize(trimSlashes(asset.metadata.context));
+		let filename = trimSlashes(asset.filename);
 
 		expect(context, 'A valid context is required!')
 			.to.exist.and
@@ -241,16 +264,6 @@ function library(base, user, pass) {
 			.to.be.a('string')
 			.and.to.have.length.above(1);
 
-		expect(data, 'Some data (obj) is required!')
-			.to.exist.and
-			.to.be.a('object').and
-			.to.contain.any.keys("filename", "metadata", "aliases", "extra", "contentType", "head", "version", "deleted", "length", "md5");
-
-		expect(data.metadata, 'Some metadata is required!')
-			.to.exist.and
-			.to.be.a('object').and
-			.to.contain.any.keys("description", "author", "sharing", "tags");
-
 		//	its optional, but if it exists, it must be a object
 		if (options) {
 			expect(options, 'options must be an object!')
@@ -260,19 +273,19 @@ function library(base, user, pass) {
 		let _data = {};
 
 		["contentType", "utf8Content", "publicCdnURI", "renameTo"].forEach(n => {
-			if (data[n]) _data[n] = data[n];
+			if (asset[n]) _data[n] = asset[n];
 		});
 
 		["description", "author", "sharing", "tags"].forEach(n => {
-			if (data.metadata[n]) _data[n] = data.metadata[n];
+			if (asset.metadata[n]) _data[n] = asset.metadata[n];
 		});
 
-		if (data.extra) {
-			_data.extraData = data.extra;
+		if (asset.extra) {
+			_data.extraData = asset.extra;
 		}
 
-		if (data.id !== data.filename) {
-			_data.renameTo = data.filename;
+		if (asset.id !== asset.filename) {
+			_data.renameTo = asset.filename;
 		}
 
 		if (options) {
@@ -295,8 +308,8 @@ function library(base, user, pass) {
 	*
 	* @example
 	* let asset = account.library.remove('templates','/email/message.txt')
-	* 	.catch(console.error)
-	* 	.then(console.log);
+	*   .catch(console.error)
+	*   .then(console.log);
 	*/
 	const remove = async function remove(context, filename, options) {
 		context = pluralize(trimSlashes(context));

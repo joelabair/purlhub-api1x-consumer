@@ -18,13 +18,14 @@ module.exports = () => {
 	let tpc;
 
 	let account = {
+		accountName: tac,
 		alias: 'test',
 		timeZone: 'America/Denver',
 		enabled: true
 	};
 
 	before(async () => {
-		account = await accounts.save(tac, account);
+		account = await accounts.save(account);
 		let nodes = account.nodes;
 		let node = await nodes.get('default');
 		objects = node.objects;
