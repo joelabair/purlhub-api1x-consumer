@@ -1,6 +1,6 @@
 {
   "name": "purlhub-api1x-consumer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Basic ES6+ purlHub v1.0 REST API JavaScript client library. ",
   "main": "index.js",
   "scripts": {
