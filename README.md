@@ -6,45 +6,45 @@ Intended to simplify the access to hierarchical objects in the purlHub core ecos
 
 * [API](#API) ⇒ <code>object</code>
     * [.accounts](#API.accounts)
-        * [~get(name)](#API.accounts..get) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-        * [~list()](#API.accounts..list) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-        * [~save(account)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-        * [~remove(name)](#API.accounts..remove) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+        * [~get(name)](#API.accounts..get) ⇒ <code>Promise</code>
+        * [~list()](#API.accounts..list) ⇒ <code>Promise</code>
+        * [~save(account)](#API.accounts..save) ⇒ <code>Promise</code>
+        * [~remove(name)](#API.accounts..remove) ⇒ <code>Promise</code>
 * [Account](#Account) : <code>object</code>
     * [.library](#Account.library)
-        * [~get(context, filename, [options])](#Account.library..get) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-        * [~list(context, [directory], [options])](#Account.library..list) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-        * [~save(asset, [options])](#Account.library..save) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-        * [~remove(context, filename, [options])](#Account.library..remove) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+        * [~get(context, filename, [options])](#Account.library..get) ⇒ <code>Promise</code>
+        * [~list(context, [directory], [options])](#Account.library..list) ⇒ <code>Promise</code>
+        * [~save(asset, [options])](#Account.library..save) ⇒ <code>Promise</code>
+        * [~remove(context, filename, [options])](#Account.library..remove) ⇒ <code>Promise</code>
     * [.nodes](#Account.nodes)
-        * [~get(path)](#Account.nodes..get) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-        * [~list()](#Account.nodes..list) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-        * [~save(data)](#Account.nodes..save) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-        * [~remove(name)](#Account.nodes..remove) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+        * [~get(path)](#Account.nodes..get) ⇒ <code>Promise</code>
+        * [~list()](#Account.nodes..list) ⇒ <code>Promise</code>
+        * [~save(data)](#Account.nodes..save) ⇒ <code>Promise</code>
+        * [~remove(name)](#Account.nodes..remove) ⇒ <code>Promise</code>
     * [.users](#Account.users)
-        * [~get(name)](#Account.users..get) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-        * [~list()](#Account.users..list) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-        * [~save(data)](#Account.users..save) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-        * [~remove(name)](#Account.users..remove) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+        * [~get(name)](#Account.users..get) ⇒ <code>Promise</code>
+        * [~list()](#Account.users..list) ⇒ <code>Promise</code>
+        * [~save(data)](#Account.users..save) ⇒ <code>Promise</code>
+        * [~remove(name)](#Account.users..remove) ⇒ <code>Promise</code>
     * [.save()](#Account.save) ⇒ <code>Promise</code>
-    * [.remove()](#Account.remove) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+    * [.remove()](#Account.remove) ⇒ <code>Promise</code>
 * [Asset](#Asset) : <code>object</code>
-    * [.save()](#Asset.save) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-    * [.remove()](#Asset.remove) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+    * [.save()](#Asset.save) ⇒ <code>Promise</code>
+    * [.remove()](#Asset.remove) ⇒ <code>Promise</code>
 * [Node](#Node) : <code>object</code>
     * [.objects](#Node.objects)
-        * [~get(id)](#Node.objects..get) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-        * [~list()](#Node.objects..list) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-        * [~save(data)](#Node.objects..save) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-        * [~remove(id)](#Node.objects..remove) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-    * [.save()](#Node.save) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-    * [.remove()](#Node.remove) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+        * [~get(id)](#Node.objects..get) ⇒ <code>Promise</code>
+        * [~list()](#Node.objects..list) ⇒ <code>Promise</code>
+        * [~save(data)](#Node.objects..save) ⇒ <code>Promise</code>
+        * [~remove(id)](#Node.objects..remove) ⇒ <code>Promise</code>
+    * [.save()](#Node.save) ⇒ <code>Promise</code>
+    * [.remove()](#Node.remove) ⇒ <code>Promise</code>
 * [Object](#Object) : <code>object</code>
-    * [.save()](#Object.save) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-    * [.remove()](#Object.remove) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
+    * [.save()](#Object.save) ⇒ <code>Promise</code>
+    * [.remove()](#Object.remove) ⇒ <code>Promise</code>
 * [User](#User) : <code>object</code>
-    * [.save()](#User.save) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-    * [.remove()](#User.remove) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+    * [.save()](#User.save) ⇒ <code>Promise</code>
+    * [.remove()](#User.remove) ⇒ <code>Promise</code>
 
 <a name="API"></a>
 
@@ -56,7 +56,7 @@ purlHub API Root instance constructor (new||call).
 
 | Param | Type | Description |
 | --- | --- | --- |
-| base | <code>string</code> | The API root URI (i.e. https://api.purlhub.com). |
+| base | <code>string</code> | The API root URI (i.e. `https://api.purlhub.com`). |
 | user | <code>string</code> | A login username. |
 | pass | <code>string</code> | The associated password. |
 
@@ -72,10 +72,10 @@ let api = API('https://api.purlhub.com', 'user@example.com', '12345678');
 
 * [API](#API) ⇒ <code>object</code>
     * [.accounts](#API.accounts)
-        * [~get(name)](#API.accounts..get) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-        * [~list()](#API.accounts..list) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-        * [~save(account)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-        * [~remove(name)](#API.accounts..remove) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+        * [~get(name)](#API.accounts..get) ⇒ <code>Promise</code>
+        * [~list()](#API.accounts..list) ⇒ <code>Promise</code>
+        * [~save(account)](#API.accounts..save) ⇒ <code>Promise</code>
+        * [~remove(name)](#API.accounts..remove) ⇒ <code>Promise</code>
 
 
 * * *
@@ -88,21 +88,22 @@ API Accounts sub-structure
 **Kind**: static property of [<code>API</code>](#API)  
 
 * [.accounts](#API.accounts)
-    * [~get(name)](#API.accounts..get) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-    * [~list()](#API.accounts..list) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-    * [~save(account)](#API.accounts..save) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
-    * [~remove(name)](#API.accounts..remove) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+    * [~get(name)](#API.accounts..get) ⇒ <code>Promise</code>
+    * [~list()](#API.accounts..list) ⇒ <code>Promise</code>
+    * [~save(account)](#API.accounts..save) ⇒ <code>Promise</code>
+    * [~remove(name)](#API.accounts..remove) ⇒ <code>Promise</code>
 
 
 * * *
 
 <a name="API.accounts..get"></a>
 
-#### accounts~get(name) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+#### accounts~get(name) ⇒ <code>Promise</code>
 Gets an account.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to a purlHub [Account](#account--object) instance.  
+**Fulfil**: [<code>Account</code>](#Account)	The purlHub account object instance.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -119,11 +120,12 @@ let account = api.accounts.get('my-acnt')
 
 <a name="API.accounts..list"></a>
 
-#### accounts~list() ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+#### accounts~list() ⇒ <code>Promise</code>
 Lists some accounts (ACL privileged method).
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to an array of purlHub [Account](#account--object) object instances.  
+**Fulfil**: <code>Account[]</code>	An array of purlHub account object instances.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 **Example**  
 ```js
 let account = api.accounts.list()
@@ -135,11 +137,12 @@ let account = api.accounts.list()
 
 <a name="API.accounts..save"></a>
 
-#### accounts~save(account) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+#### accounts~save(account) ⇒ <code>Promise</code>
 Saves an account.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to a purlHub [Account](#account--object) instance.  
+**Fulfil**: [<code>Account</code>](#Account)	The saved purlHub account object.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -160,11 +163,12 @@ let account = api.accounts.save({
 
 <a name="API.accounts..remove"></a>
 
-#### accounts~remove(name) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+#### accounts~remove(name) ⇒ <code>Promise</code>
 Removes an account.
 
 **Kind**: inner method of [<code>accounts</code>](#API.accounts)  
-**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to the removed purlHub [Account](#account--object) (static object w/ out instance methods).  
+**Fulfil**: [<code>Account</code>](#Account)	The removed purlHub account object (static object w/ out instance methods).  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -197,22 +201,22 @@ A purlHub account instance.
 
 * [Account](#Account) : <code>object</code>
     * [.library](#Account.library)
-        * [~get(context, filename, [options])](#Account.library..get) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-        * [~list(context, [directory], [options])](#Account.library..list) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-        * [~save(asset, [options])](#Account.library..save) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-        * [~remove(context, filename, [options])](#Account.library..remove) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+        * [~get(context, filename, [options])](#Account.library..get) ⇒ <code>Promise</code>
+        * [~list(context, [directory], [options])](#Account.library..list) ⇒ <code>Promise</code>
+        * [~save(asset, [options])](#Account.library..save) ⇒ <code>Promise</code>
+        * [~remove(context, filename, [options])](#Account.library..remove) ⇒ <code>Promise</code>
     * [.nodes](#Account.nodes)
-        * [~get(path)](#Account.nodes..get) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-        * [~list()](#Account.nodes..list) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-        * [~save(data)](#Account.nodes..save) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-        * [~remove(name)](#Account.nodes..remove) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+        * [~get(path)](#Account.nodes..get) ⇒ <code>Promise</code>
+        * [~list()](#Account.nodes..list) ⇒ <code>Promise</code>
+        * [~save(data)](#Account.nodes..save) ⇒ <code>Promise</code>
+        * [~remove(name)](#Account.nodes..remove) ⇒ <code>Promise</code>
     * [.users](#Account.users)
-        * [~get(name)](#Account.users..get) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-        * [~list()](#Account.users..list) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-        * [~save(data)](#Account.users..save) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-        * [~remove(name)](#Account.users..remove) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+        * [~get(name)](#Account.users..get) ⇒ <code>Promise</code>
+        * [~list()](#Account.users..list) ⇒ <code>Promise</code>
+        * [~save(data)](#Account.users..save) ⇒ <code>Promise</code>
+        * [~remove(name)](#Account.users..remove) ⇒ <code>Promise</code>
     * [.save()](#Account.save) ⇒ <code>Promise</code>
-    * [.remove()](#Account.remove) ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+    * [.remove()](#Account.remove) ⇒ <code>Promise</code>
 
 
 * * *
@@ -225,21 +229,22 @@ API Accounts Library (asset library) sub-structure.
 **Kind**: static property of [<code>Account</code>](#Account)  
 
 * [.library](#Account.library)
-    * [~get(context, filename, [options])](#Account.library..get) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-    * [~list(context, [directory], [options])](#Account.library..list) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-    * [~save(asset, [options])](#Account.library..save) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-    * [~remove(context, filename, [options])](#Account.library..remove) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+    * [~get(context, filename, [options])](#Account.library..get) ⇒ <code>Promise</code>
+    * [~list(context, [directory], [options])](#Account.library..list) ⇒ <code>Promise</code>
+    * [~save(asset, [options])](#Account.library..save) ⇒ <code>Promise</code>
+    * [~remove(context, filename, [options])](#Account.library..remove) ⇒ <code>Promise</code>
 
 
 * * *
 
 <a name="Account.library..get"></a>
 
-#### library~get(context, filename, [options]) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+#### library~get(context, filename, [options]) ⇒ <code>Promise</code>
 Gets a library asset.
 
 **Kind**: inner method of [<code>library</code>](#Account.library)  
-**Returns**: <code>Promise.&lt;Asset, HTTPError&gt;</code> - A promise that resolves to a purlHub [Asset](#asset--object) instance.  
+**Fulfil**: [<code>Asset</code>](#Asset)	A purlHub library asset instance.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -258,11 +263,12 @@ let asset = account.library.get('templates','/email/message.txt')
 
 <a name="Account.library..list"></a>
 
-#### library~list(context, [directory], [options]) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+#### library~list(context, [directory], [options]) ⇒ <code>Promise</code>
 Lists all assets.
 
 **Kind**: inner method of [<code>library</code>](#Account.library)  
-**Returns**: <code>Promise.&lt;Asset, HTTPError&gt;</code> - A promise that resolves to an array of purlHub [Asset](#asset--object) object instances.  
+**Fulfil**: <code>Asset[]</code>	A array of purlHub library asset instances.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -281,11 +287,12 @@ let assets = account.library.list('templates')
 
 <a name="Account.library..save"></a>
 
-#### library~save(asset, [options]) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+#### library~save(asset, [options]) ⇒ <code>Promise</code>
 Saves a library asset.
 
 **Kind**: inner method of [<code>library</code>](#Account.library)  
-**Returns**: <code>Promise.&lt;Asset, HTTPError&gt;</code> - A promise that resolves to a purlHub [Asset](#asset--object) instance.  
+**Fulfil**: [<code>Asset</code>](#Asset)	The saved purlHub library asset instance.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -310,11 +317,12 @@ let asset = account.library.save({
 
 <a name="Account.library..remove"></a>
 
-#### library~remove(context, filename, [options]) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+#### library~remove(context, filename, [options]) ⇒ <code>Promise</code>
 Removes a asset.
 
 **Kind**: inner method of [<code>library</code>](#Account.library)  
-**Returns**: <code>Promise.&lt;Asset, HTTPError&gt;</code> - A promise that resolves to a purlHub [Asset](#asset--object) instance (static object w/ out instance methods).  
+**Fulfil**: [<code>Asset</code>](#Asset)	The saved purlHub library asset object (static object w/ out instance methods).  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -339,21 +347,22 @@ API Accounts Nodes (child nodes) sub-structure.
 **Kind**: static property of [<code>Account</code>](#Account)  
 
 * [.nodes](#Account.nodes)
-    * [~get(path)](#Account.nodes..get) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-    * [~list()](#Account.nodes..list) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-    * [~save(data)](#Account.nodes..save) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-    * [~remove(name)](#Account.nodes..remove) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+    * [~get(path)](#Account.nodes..get) ⇒ <code>Promise</code>
+    * [~list()](#Account.nodes..list) ⇒ <code>Promise</code>
+    * [~save(data)](#Account.nodes..save) ⇒ <code>Promise</code>
+    * [~remove(name)](#Account.nodes..remove) ⇒ <code>Promise</code>
 
 
 * * *
 
 <a name="Account.nodes..get"></a>
 
-#### nodes~get(path) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+#### nodes~get(path) ⇒ <code>Promise</code>
 Gets a node.
 
 **Kind**: inner method of [<code>nodes</code>](#Account.nodes)  
-**Returns**: <code>Promise.&lt;Node, HTTPError&gt;</code> - A promise that resolves to a purlHub [Node](#node--object) instance.  
+**Fulfil**: [<code>Node</code>](#Node) 	A purlHub node instance.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -370,11 +379,12 @@ let node = account.nodes.get('/default/Sales')
 
 <a name="Account.nodes..list"></a>
 
-#### nodes~list() ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+#### nodes~list() ⇒ <code>Promise</code>
 Lists all nodes.
 
 **Kind**: inner method of [<code>nodes</code>](#Account.nodes)  
-**Returns**: <code>Promise.&lt;Node, HTTPError&gt;</code> - A promise that resolves to an array of purlHub [Node](#node--object) object instances.  
+**Fulfil**: <code>Node[]</code> 	An array of purlHub node instances.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 **Example**  
 ```js
 let node = account.nodes.list()
@@ -386,11 +396,12 @@ let node = account.nodes.list()
 
 <a name="Account.nodes..save"></a>
 
-#### nodes~save(data) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+#### nodes~save(data) ⇒ <code>Promise</code>
 Saves a node.
 
 **Kind**: inner method of [<code>nodes</code>](#Account.nodes)  
-**Returns**: <code>Promise.&lt;Node, HTTPError&gt;</code> - A promise that resolves to a purlHub [Node](#node--object) instance.  
+**Fulfil**: [<code>Node</code>](#Node) 	The saved purlHub node instance.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -412,11 +423,12 @@ let node = account.nodes.save({
 
 <a name="Account.nodes..remove"></a>
 
-#### nodes~remove(name) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+#### nodes~remove(name) ⇒ <code>Promise</code>
 Removes a node.
 
 **Kind**: inner method of [<code>nodes</code>](#Account.nodes)  
-**Returns**: <code>Promise.&lt;Node, HTTPError&gt;</code> - A promise that resolves to the removed purlHub [Node](#node--object) (static object w/ out instance methods).  
+**Fulfil**: [<code>Node</code>](#Node) 	The removed purlHub node object (static object w/ out instance methods).  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -439,21 +451,22 @@ API Accounts Users sub-structure.
 **Kind**: static property of [<code>Account</code>](#Account)  
 
 * [.users](#Account.users)
-    * [~get(name)](#Account.users..get) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-    * [~list()](#Account.users..list) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-    * [~save(data)](#Account.users..save) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-    * [~remove(name)](#Account.users..remove) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+    * [~get(name)](#Account.users..get) ⇒ <code>Promise</code>
+    * [~list()](#Account.users..list) ⇒ <code>Promise</code>
+    * [~save(data)](#Account.users..save) ⇒ <code>Promise</code>
+    * [~remove(name)](#Account.users..remove) ⇒ <code>Promise</code>
 
 
 * * *
 
 <a name="Account.users..get"></a>
 
-#### users~get(name) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+#### users~get(name) ⇒ <code>Promise</code>
 Gets a user.
 
 **Kind**: inner method of [<code>users</code>](#Account.users)  
-**Returns**: <code>Promise.&lt;User, HTTPError&gt;</code> - A promise that resolves to a purlHub [User](#user) instance.  
+**Fulfil**: [<code>User</code>](#User)	A purlHub user instance.  
+**Reject**: <code>HTTPError</code>	A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -470,11 +483,12 @@ let account = account.users.get('user@example.com')
 
 <a name="Account.users..list"></a>
 
-#### users~list() ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+#### users~list() ⇒ <code>Promise</code>
 Lists all users.
 
 **Kind**: inner method of [<code>users</code>](#Account.users)  
-**Returns**: <code>Promise.&lt;User, HTTPError&gt;</code> - A promise that resolves to an array of purlHub [User](#user) object instances.  
+**Fulfil**: <code>User[]</code>	An array of purlHub user instances.  
+**Reject**: <code>HTTPError</code>	A HTTP error object.  
 **Example**  
 ```js
 let account = account.users.list()
@@ -486,11 +500,12 @@ let account = account.users.list()
 
 <a name="Account.users..save"></a>
 
-#### users~save(data) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+#### users~save(data) ⇒ <code>Promise</code>
 Saves a user.
 
 **Kind**: inner method of [<code>users</code>](#Account.users)  
-**Returns**: <code>Promise.&lt;User, HTTPError&gt;</code> - A promise that resolves to a purlHub [User](#user) instance.  
+**Fulfil**: [<code>User</code>](#User)	The saved purlHub user instance.  
+**Reject**: <code>HTTPError</code>	A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -511,11 +526,12 @@ let user = account.users.save({
 
 <a name="Account.users..remove"></a>
 
-#### users~remove(name) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+#### users~remove(name) ⇒ <code>Promise</code>
 Removes a user.
 
 **Kind**: inner method of [<code>users</code>](#Account.users)  
-**Returns**: <code>Promise.&lt;User, HTTPError&gt;</code> - A promise that resolves to the removed purlHub [User](#user) (static object w/ out instance methods).  
+**Fulfil**: [<code>User</code>](#User)	The removed purlHub user object (static object w/ out instance methods).  
+**Reject**: <code>HTTPError</code>	A HTTP error object.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -536,7 +552,7 @@ let user = account.users.remove('user@example.com')
 Save this account instance.
 
 **Kind**: static method of [<code>Account</code>](#Account)  
-**Fulfil**: [<code>Account</code>](#Account)	The saved purlHub [Account](#account--object) (w/ instance methods).  
+**Fulfil**: [<code>Account</code>](#Account)	The saved purlHub account object.  
 **Reject**: <code>HTTPError</code> A HTTP error object.  
 **Example**  
 ```js
@@ -549,11 +565,12 @@ account.save()
 
 <a name="Account.remove"></a>
 
-### Account.remove() ⇒ <code>Promise.&lt;Account, HTTPError&gt;</code>
+### Account.remove() ⇒ <code>Promise</code>
 Remove this account instance.
 
 **Kind**: static method of [<code>Account</code>](#Account)  
-**Returns**: <code>Promise.&lt;Account, HTTPError&gt;</code> - A promise that resolves to the removed purlHub [Account](#account--object) (static object w/ out instance methods).  
+**Fulfil**: [<code>Account</code>](#Account)	The removed purlHub account object (static object w/ out instance methods).  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 **Example**  
 ```js
 account.remove()
@@ -583,19 +600,20 @@ A purlHub account library asset instance.
 
 
 * [Asset](#Asset) : <code>object</code>
-    * [.save()](#Asset.save) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
-    * [.remove()](#Asset.remove) ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+    * [.save()](#Asset.save) ⇒ <code>Promise</code>
+    * [.remove()](#Asset.remove) ⇒ <code>Promise</code>
 
 
 * * *
 
 <a name="Asset.save"></a>
 
-### Asset.save() ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+### Asset.save() ⇒ <code>Promise</code>
 Save this asset instance.
 
 **Kind**: static method of [<code>Asset</code>](#Asset)  
-**Returns**: <code>Promise.&lt;Asset, HTTPError&gt;</code> - A promise that resolves to the saved purlHub [Asset](#asset--object) (w/ instance methods).  
+**Fulfil**: [<code>Asset</code>](#Asset)	The saved purlHub library asset instance.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 **Example**  
 ```js
 asset.save()
@@ -607,11 +625,12 @@ asset.save()
 
 <a name="Asset.remove"></a>
 
-### Asset.remove() ⇒ <code>Promise.&lt;Asset, HTTPError&gt;</code>
+### Asset.remove() ⇒ <code>Promise</code>
 Remove this asset instance.
 
 **Kind**: static method of [<code>Asset</code>](#Asset)  
-**Returns**: <code>Promise.&lt;Asset, HTTPError&gt;</code> - A promise that resolves to the removed purlHub [Asset](#asset--object) (static object w/ out instance methods).  
+**Fulfil**: [<code>Asset</code>](#Asset)	The saved purlHub library asset object (static object w/ out instance methods).  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 **Example**  
 ```js
 asset.remove()
@@ -636,16 +655,17 @@ A purlHub account child node instance.
 | nodePath | <code>string</code> | The node's hierarchical path including its name. |
 | description | <code>string</code> | A long description. |
 | status | <code>string</code> | The state (live|draft) indicating the default event tracking mode. |
+| childNodes | <code>object</code> | An object of hierarchical child node instances. |
 
 
 * [Node](#Node) : <code>object</code>
     * [.objects](#Node.objects)
-        * [~get(id)](#Node.objects..get) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-        * [~list()](#Node.objects..list) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-        * [~save(data)](#Node.objects..save) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-        * [~remove(id)](#Node.objects..remove) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-    * [.save()](#Node.save) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
-    * [.remove()](#Node.remove) ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+        * [~get(id)](#Node.objects..get) ⇒ <code>Promise</code>
+        * [~list()](#Node.objects..list) ⇒ <code>Promise</code>
+        * [~save(data)](#Node.objects..save) ⇒ <code>Promise</code>
+        * [~remove(id)](#Node.objects..remove) ⇒ <code>Promise</code>
+    * [.save()](#Node.save) ⇒ <code>Promise</code>
+    * [.remove()](#Node.remove) ⇒ <code>Promise</code>
 
 
 * * *
@@ -658,21 +678,22 @@ API Accounts Nodes Objects sub-structure.
 **Kind**: static property of [<code>Node</code>](#Node)  
 
 * [.objects](#Node.objects)
-    * [~get(id)](#Node.objects..get) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-    * [~list()](#Node.objects..list) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-    * [~save(data)](#Node.objects..save) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-    * [~remove(id)](#Node.objects..remove) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
+    * [~get(id)](#Node.objects..get) ⇒ <code>Promise</code>
+    * [~list()](#Node.objects..list) ⇒ <code>Promise</code>
+    * [~save(data)](#Node.objects..save) ⇒ <code>Promise</code>
+    * [~remove(id)](#Node.objects..remove) ⇒ <code>Promise</code>
 
 
 * * *
 
 <a name="Node.objects..get"></a>
 
-#### objects~get(id) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
+#### objects~get(id) ⇒ <code>Promise</code>
 Gets a personalization object.
 
 **Kind**: inner method of [<code>objects</code>](#Node.objects)  
-**Returns**: <code>Promise.&lt;Object, HTTPError&gt;</code> - A promise that resolves to a purlHub personalization [Object](#object--object) instance.  
+**Fulfil**: [<code>Object</code>](#Object)	The purlHub personalization object instance.  
+**Reject**: <code>HTTPError</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -689,11 +710,12 @@ let object = node.objects.get('JoePersonX13g')
 
 <a name="Node.objects..list"></a>
 
-#### objects~list() ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
+#### objects~list() ⇒ <code>Promise</code>
 Lists all personalization objects in a node.
 
 **Kind**: inner method of [<code>objects</code>](#Node.objects)  
-**Returns**: <code>Promise.&lt;Object, HTTPError&gt;</code> - A promise that resolves to an array of purlHub personalization [Object](#object--object) object instances.  
+**Fulfil**: <code>Object[]</code>	An array of purlHub personalization object instances.  
+**Reject**: <code>HTTPError</code>  
 **Example**  
 ```js
 let objects = node.objects.list()
@@ -705,11 +727,12 @@ let objects = node.objects.list()
 
 <a name="Node.objects..save"></a>
 
-#### objects~save(data) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
+#### objects~save(data) ⇒ <code>Promise</code>
 Saves a complete personalization object.
 
 **Kind**: inner method of [<code>objects</code>](#Node.objects)  
-**Returns**: <code>Promise.&lt;Object, HTTPError&gt;</code> - A promise that resolves to a purlHub personalization [Object](#object--object) instance.  
+**Fulfil**: [<code>Object</code>](#Object)	The saved purlHub personalization object instance.  
+**Reject**: <code>HTTPError</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -732,11 +755,12 @@ let user = node.objects.save({
 
 <a name="Node.objects..remove"></a>
 
-#### objects~remove(id) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
+#### objects~remove(id) ⇒ <code>Promise</code>
 Removes a personalization object.
 
 **Kind**: inner method of [<code>objects</code>](#Node.objects)  
-**Returns**: <code>Promise.&lt;Object, HTTPError&gt;</code> - A promise that resolves to the removed purlHub personalization [Object](#object--object) (static object w/ out instance methods).  
+**Fulfil**: [<code>Object</code>](#Object)	The removed purlHub personalization object (static object w/ out instance methods).  
+**Reject**: <code>HTTPError</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -753,11 +777,12 @@ let user = node.objects.remove('JoePersonX13g')
 
 <a name="Node.save"></a>
 
-### Node.save() ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+### Node.save() ⇒ <code>Promise</code>
 Save this node instance.
 
 **Kind**: static method of [<code>Node</code>](#Node)  
-**Returns**: <code>Promise.&lt;Node, HTTPError&gt;</code> - A promise that resolves to the saved purlHub [Node](#node--object) (w/ instance methods).  
+**Fulfil**: [<code>Node</code>](#Node) 	The saved purlHub node instance.  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 **Example**  
 ```js
 node.save()
@@ -769,11 +794,12 @@ node.save()
 
 <a name="Node.remove"></a>
 
-### Node.remove() ⇒ <code>Promise.&lt;Node, HTTPError&gt;</code>
+### Node.remove() ⇒ <code>Promise</code>
 Remove this node instance.
 
 **Kind**: static method of [<code>Node</code>](#Node)  
-**Returns**: <code>Promise.&lt;Node, HTTPError&gt;</code> - A promise that resolves to the removed purlHub [Node](#node--object) (static object w/ out instance methods).  
+**Fulfil**: [<code>Node</code>](#Node) 	The removed purlHub node object (static object w/ out instance methods).  
+**Reject**: <code>HTTPError</code> A HTTP error object.  
 **Example**  
 ```js
 node.remove()
@@ -801,19 +827,20 @@ A purlHub account node personalization object instance.
 
 
 * [Object](#Object) : <code>object</code>
-    * [.save()](#Object.save) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
-    * [.remove()](#Object.remove) ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
+    * [.save()](#Object.save) ⇒ <code>Promise</code>
+    * [.remove()](#Object.remove) ⇒ <code>Promise</code>
 
 
 * * *
 
 <a name="Object.save"></a>
 
-### Object.save() ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
+### Object.save() ⇒ <code>Promise</code>
 Save this personalization object instance.
 
 **Kind**: static method of [<code>Object</code>](#Object)  
-**Returns**: <code>Promise.&lt;Object, HTTPError&gt;</code> - A promise that resolves to the saved purlHub personalization [Object](#object--object) (w/ instance methods).  
+**Fulfil**: [<code>Object</code>](#Object)	The purlHub personalization object instance.  
+**Reject**: <code>HTTPError</code>  
 **Example**  
 ```js
 object.save()
@@ -825,11 +852,12 @@ object.save()
 
 <a name="Object.remove"></a>
 
-### Object.remove() ⇒ <code>Promise.&lt;Object, HTTPError&gt;</code>
+### Object.remove() ⇒ <code>Promise</code>
 Remove this personalization object instance.
 
 **Kind**: static method of [<code>Object</code>](#Object)  
-**Returns**: <code>Promise.&lt;Object, HTTPError&gt;</code> - A promise that resolves to the removed purlHub personalization [Object](#object--object) (static object w/ out instance methods).  
+**Fulfil**: [<code>Object</code>](#Object)	The removed purlHub personalization object (static object w/ out instance methods).  
+**Reject**: <code>HTTPError</code>  
 **Example**  
 ```js
 object.remove()
@@ -859,19 +887,20 @@ A purlHub account user instance.
 
 
 * [User](#User) : <code>object</code>
-    * [.save()](#User.save) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
-    * [.remove()](#User.remove) ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+    * [.save()](#User.save) ⇒ <code>Promise</code>
+    * [.remove()](#User.remove) ⇒ <code>Promise</code>
 
 
 * * *
 
 <a name="User.save"></a>
 
-### User.save() ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+### User.save() ⇒ <code>Promise</code>
 Save this user instance.
 
 **Kind**: static method of [<code>User</code>](#User)  
-**Returns**: <code>Promise.&lt;User, HTTPError&gt;</code> - A promise that resolves to the saved purlHub [User](#user) (w/ instance methods).  
+**Fulfil**: [<code>User</code>](#User)	The saved purlHub user instance.  
+**Reject**: <code>HTTPError</code>	A HTTP error object.  
 **Example**  
 ```js
 user.save()
@@ -883,11 +912,12 @@ user.save()
 
 <a name="User.remove"></a>
 
-### User.remove() ⇒ <code>Promise.&lt;User, HTTPError&gt;</code>
+### User.remove() ⇒ <code>Promise</code>
 Remove this user instance.
 
 **Kind**: static method of [<code>User</code>](#User)  
-**Returns**: <code>Promise.&lt;User, HTTPError&gt;</code> - A promise that resolves to the removed purlHub [User](#user) (static object w/ out instance methods).  
+**Fulfil**: [<code>User</code>](#User)	The removed purlHub user object (static object w/ out instance methods).  
+**Reject**: <code>HTTPError</code>	A HTTP error object.  
 **Example**  
 ```js
 user.remove()

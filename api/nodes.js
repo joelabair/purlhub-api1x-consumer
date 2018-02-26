@@ -68,6 +68,7 @@ function nodes(base, user, pass) {
 	 * @property {string} nodePath			The node's hierarchical path including its name.
 	 * @property {string} description		A long description.
 	 * @property {string} status				The state (live|draft) indicating the default event tracking mode.
+	 * @property {object} childNodes		An object of hierarchical child node instances.
 	 */
 	const compose = function compose(data) {
 		if (!data || !data.nodeName) {
@@ -117,7 +118,10 @@ function nodes(base, user, pass) {
 			* Save this node instance.
 			* @async
 			* @memberof Node
-			* @returns {Promise<Node,HTTPError>}	A promise that resolves to the saved purlHub {@link #node--object|Node} (w/ instance methods).
+			*
+			* @returns {Promise}
+			* @fulfil {Node} 	The saved purlHub node instance.
+			* @reject {HTTPError} A HTTP error object.
 			*
 			* @example
 			* node.save()
@@ -131,7 +135,10 @@ function nodes(base, user, pass) {
 			* Remove this node instance.
 			* @async
 			* @memberof Node
-			* @returns {Promise<Node,HTTPError>}	A promise that resolves to the removed purlHub {@link #node--object|Node} (static object w/ out instance methods).
+			*
+			* @returns {Promise}
+			* @fulfil {Node} 	The removed purlHub node object (static object w/ out instance methods).
+			* @reject {HTTPError} A HTTP error object.
 			*
 			* @example
 			* node.remove()
@@ -151,7 +158,10 @@ function nodes(base, user, pass) {
 	* Gets a node.
 	* @async
 	* @param {string} path		A node path.
-	* @returns {Promise<Node,HTTPError>}	A promise that resolves to a purlHub {@link #node--object|Node} instance.
+	*
+	* @returns {Promise}
+	* @fulfil {Node} 	A purlHub node instance.
+	* @reject {HTTPError} A HTTP error object.
 	*
 	* @example
 	* let node = account.nodes.get('/default/Sales')
@@ -175,7 +185,10 @@ function nodes(base, user, pass) {
 	/**
 	* Lists all nodes.
 	* @async
-	* @returns {Promise<Node,HTTPError>}	A promise that resolves to an array of purlHub {@link #node--object|Node} object instances.
+	*
+	* @returns {Promise}
+	* @fulfil {Node[]} 	An array of purlHub node instances.
+	* @reject {HTTPError} A HTTP error object.
 	*
 	* @example
 	* let node = account.nodes.list()
@@ -193,7 +206,10 @@ function nodes(base, user, pass) {
 	* Saves a node.
 	* @async
 	* @param {object} data	A purlHub {@link #node--object|Node} object.
-	* @returns {Promise<Node,HTTPError>}	A promise that resolves to a purlHub {@link #node--object|Node} instance.
+	*
+	* @returns {Promise}
+	* @fulfil {Node} 	The saved purlHub node instance.
+	* @reject {HTTPError} A HTTP error object.
 	*
 	* @example
 	* let node = account.nodes.save({
@@ -243,7 +259,10 @@ function nodes(base, user, pass) {
 	* Removes a node.
 	* @async
 	* @param {string} name	A node path.
-	* @returns {Promise<Node,HTTPError>}	A promise that resolves to the removed purlHub {@link #node--object|Node} (static object w/ out instance methods).
+	*
+	* @returns {Promise}
+	* @fulfil {Node} 	The removed purlHub node object (static object w/ out instance methods).
+	* @reject {HTTPError} A HTTP error object.
 	*
 	* @example
 	* let node = account.nodes.remove('/default/Sales')

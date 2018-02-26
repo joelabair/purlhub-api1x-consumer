@@ -83,7 +83,10 @@ function users(base, user, pass) {
 			* Save this user instance.
 			* @async
 			* @memberof User
-			* @returns {Promise<User,HTTPError>}	A promise that resolves to the saved purlHub {@link #user|User} (w/ instance methods).
+			*
+			* @returns {Promise}
+			* @fulfil {User}	The saved purlHub user instance.
+			* @reject {HTTPError}	A HTTP error object.
 			*
 			* @example
 			* user.save()
@@ -97,7 +100,10 @@ function users(base, user, pass) {
 			* Remove this user instance.
 			* @async
 			* @memberof User
-			* @returns {Promise<User,HTTPError>}	A promise that resolves to the removed purlHub {@link #user|User} (static object w/ out instance methods).
+			*
+			* @returns {Promise}
+			* @fulfil {User}	The removed purlHub user object (static object w/ out instance methods).
+			* @reject {HTTPError}	A HTTP error object.
 			*
 			* @example
 			* user.remove()
@@ -114,8 +120,12 @@ function users(base, user, pass) {
 
 	/**
 	* Gets a user.
+	* @async
 	* @param {string} name	A username / login.
-	* @returns {Promise<User,HTTPError>}	A promise that resolves to a purlHub {@link #user|User} instance.
+	*
+	* @returns {Promise}
+	* @fulfil {User}	A purlHub user instance.
+	* @reject {HTTPError}	A HTTP error object.
 	*
 	* @example
 	* let account = account.users.get('user@example.com')
@@ -136,7 +146,11 @@ function users(base, user, pass) {
 
 	/**
 	* Lists all users.
-	* @returns {Promise<User,HTTPError>}	A promise that resolves to an array of purlHub {@link #user|User} object instances.
+	* @async
+	*
+	* @returns {Promise}
+	* @fulfil {User[]}	An array of purlHub user instances.
+	* @reject {HTTPError}	A HTTP error object.
 	*
 	* @example
 	* let account = account.users.list()
@@ -152,8 +166,12 @@ function users(base, user, pass) {
 
 	/**
 	* Saves a user.
+	* @async
 	* @param {object} data	A purlHub {@link #user|User} object.
-	* @returns {Promise<User,HTTPError>}	A promise that resolves to a purlHub {@link #user|User} instance.
+	*
+	* @returns {Promise}
+	* @fulfil {User}	The saved purlHub user instance.
+	* @reject {HTTPError}	A HTTP error object.
 	*
 	* @example
 	* let user = account.users.save({
@@ -212,7 +230,10 @@ function users(base, user, pass) {
 	* Removes a user.
 	* @async
 	* @param {string} name	A username / login.
-	* @returns {Promise<User,HTTPError>}	A promise that resolves to the removed purlHub {@link #user|User} (static object w/ out instance methods).
+	*
+	* @returns {Promise}
+	* @fulfil {User}	The removed purlHub user object (static object w/ out instance methods).
+	* @reject {HTTPError}	A HTTP error object.
 	*
 	* @example
 	* let user = account.users.remove('user@example.com')

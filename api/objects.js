@@ -110,7 +110,10 @@ function objects(base, user, pass) {
 			* Save this personalization object instance.
 			* @async
 			* @memberof Object
-			* @returns {Promise<Object,HTTPError>}	A promise that resolves to the saved purlHub personalization {@link #object--object|Object} (w/ instance methods).
+			*
+			* @returns {Promise}
+			* @fulfil {Object}	The purlHub personalization object instance.
+			* @reject {HTTPError}
 			*
 			* @example
 			* object.save()
@@ -124,7 +127,10 @@ function objects(base, user, pass) {
 			* Remove this personalization object instance.
 			* @async
 			* @memberof Object
-			* @returns {Promise<Object,HTTPError>}	A promise that resolves to the removed purlHub personalization {@link #object--object|Object} (static object w/ out instance methods).
+			*
+			* @returns {Promise}
+			* @fulfil {Object}	The removed purlHub personalization object (static object w/ out instance methods).
+			* @reject {HTTPError}
 			*
 			* @example
 			* object.remove()
@@ -141,8 +147,12 @@ function objects(base, user, pass) {
 
 	/**
 	* Gets a personalization object.
+	* @async
 	* @param {string} id		A purlCode to lookup.
-	* @returns {Promise<Object,HTTPError>}	A promise that resolves to a purlHub personalization {@link #object--object|Object} instance.
+	*
+	* @returns {Promise}
+	* @fulfil {Object}	The purlHub personalization object instance.
+	* @reject {HTTPError}
 	*
 	* @example
 	* let object = node.objects.get('JoePersonX13g')
@@ -174,7 +184,11 @@ function objects(base, user, pass) {
 
 	/**
 	* Lists all personalization objects in a node.
-	* @returns {Promise<Object,HTTPError>}	A promise that resolves to an array of purlHub personalization {@link #object--object|Object} object instances.
+	* @async
+	*
+	* @returns {Promise}
+	* @fulfil {Object[]}	An array of purlHub personalization object instances.
+	* @reject {HTTPError}
 	*
 	* @example
 	* let objects = node.objects.list()
@@ -203,8 +217,12 @@ function objects(base, user, pass) {
 
 	/**
 	* Saves a complete personalization object.
+	* @async
 	* @param {object} data	A purlHub personalization {@link #object--object|Object} object.
-	* @returns {Promise<Object,HTTPError>}	A promise that resolves to a purlHub personalization {@link #object--object|Object} instance.
+	*
+	* @returns {Promise}
+	* @fulfil {Object}	The saved purlHub personalization object instance.
+	* @reject {HTTPError}
 	*
 	* @example
 	* let user = node.objects.save({
@@ -343,7 +361,10 @@ function objects(base, user, pass) {
 	* Removes a personalization object.
 	* @async
 	* @param {string} id		The purlCode to remove.
-	* @returns {Promise<Object,HTTPError>}	A promise that resolves to the removed purlHub personalization {@link #object--object|Object} (static object w/ out instance methods).
+	*
+	* @returns {Promise}
+	* @fulfil {Object}	The removed purlHub personalization object (static object w/ out instance methods).
+	* @reject {HTTPError}
 	*
 	* @example
 	* let user = node.objects.remove('JoePersonX13g')

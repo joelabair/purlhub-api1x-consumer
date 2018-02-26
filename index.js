@@ -26,12 +26,10 @@ function trimSlashes (data) {
 
 /**
  * purlHub API Root instance constructor (new||call).
- *
  * @type module
  * @namespace API
  *
- *
- * @param {string} base 	The API root URI (i.e. https://api.purlhub.com).
+ * @param {string} base 	The API root URI (i.e. `https://api.purlhub.com`).
  * @param {string} user 	A login username.
  * @param {string} pass 	The associated password.
  *
