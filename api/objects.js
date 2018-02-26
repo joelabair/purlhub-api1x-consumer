@@ -185,6 +185,7 @@ function objects(base, user, pass) {
 	/**
 	* Lists all personalization objects in a node.
 	* @async
+	* @param {object} filter 	Some search criteria (i.e. {email: 'user@example.com'}).
 	*
 	* @returns {Promise}
 	* @fulfil {Object[]}	An array of purlHub personalization object instances.
