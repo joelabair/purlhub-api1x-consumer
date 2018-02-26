@@ -79,7 +79,9 @@ function accounts(base, user, pass) {
 			* Save this account instance.
 			* @async
 			* @memberof Account
-			* @returns {Promise<Account,HTTPError>}	A promise that resolves to the saved purlHub {@link #account|Account} (w/ instance methods).
+			* @returns {Promise}
+			* @fulfil {Account}	The saved purlHub {@link #account--object|Account} (w/ instance methods).
+			* @reject {HTTPError} A HTTP error object.
 			*
 			* @example
 			* account.save()
@@ -93,7 +95,7 @@ function accounts(base, user, pass) {
 			* Remove this account instance.
 			* @async
 			* @memberof Account
-			* @returns {Promise<Account,HTTPError>}	A promise that resolves to the removed purlHub {@link #account|Account} (static object w/ out instance methods).
+			* @returns {Promise<Account,HTTPError>}	A promise that resolves to the removed purlHub {@link #account--object|Account} (static object w/ out instance methods).
 			*
 			* @example
 			* account.remove()
@@ -110,7 +112,7 @@ function accounts(base, user, pass) {
 	/**
 	* Gets an account.
 	* @param {string} name	A purlHub account name.
-	* @returns {Promise<Account,HTTPError>}	A promise that resolves to a purlHub {@link #account|Account} instance.
+	* @returns {Promise<Account,HTTPError>}	A promise that resolves to a purlHub {@link #account--object|Account} instance.
 	*
 	* @example
 	* let account = api.accounts.get('my-acnt')
@@ -133,7 +135,7 @@ function accounts(base, user, pass) {
 
 	/**
 	* Lists some accounts (ACL privileged method).
-	* @returns {Promise<Account,HTTPError>}	A promise that resolves to an array of purlHub {@link #account|Account} object instances.
+	* @returns {Promise<Account,HTTPError>}	A promise that resolves to an array of purlHub {@link #account--object|Account} object instances.
 	*
 	* @example
 	* let account = api.accounts.list()
@@ -149,8 +151,8 @@ function accounts(base, user, pass) {
 
 	/**
 	* Saves an account.
-	* @param {object} account	A purlHub {@link #account|Account} object.
-	* @returns {Promise<Account,HTTPError>}	A promise that resolves to a purlHub {@link #account|Account} instance.
+	* @param {object} account	A purlHub {@link #account--object|Account} object.
+	* @returns {Promise<Account,HTTPError>}	A promise that resolves to a purlHub {@link #account--object|Account} instance.
 	*
 	* @example
 	* let account = api.accounts.save({
@@ -195,7 +197,7 @@ function accounts(base, user, pass) {
 	* Removes an account.
 	* @async
 	* @param {string} name	A purlHub account name.
-	* @returns {Promise<Account,HTTPError>}	A promise that resolves to the removed purlHub {@link #account|Account} (static object w/ out instance methods).
+	* @returns {Promise<Account,HTTPError>}	A promise that resolves to the removed purlHub {@link #account--object|Account} (static object w/ out instance methods).
 	*
 	* @example
 	* let account = api.accounts.remove('my-acnt')

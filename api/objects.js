@@ -60,6 +60,17 @@ function objects(base, user, pass) {
 		.auth(user, pass)
 		.retry(3);
 
+	/**
+	 * A purlHub account node personalization object instance.
+	 * @namespace Object
+	 * @type object
+	 *
+	 * @property {string} purlCode		The PK or unique id.
+	 * @property {object} profile			The personalization data.
+	 * @property {object} properties	Configuration properties for this pURL.
+	 * @property {object} attributes	State data for this pURL.
+	 * @property {object} records		Ancillary submission records in the form of [name => object].
+	 */
 	const compose = function compose(data) {
 		if (!data) {
 			let err = new Error('Not Found!');
@@ -95,41 +106,81 @@ function objects(base, user, pass) {
 		}
 
 		return Object.create({
+			/**
+			* Save this personalization object instance.
+			* @async
+			* @memberof Object
+			* @returns {Promise<Object,HTTPError>}	A promise that resolves to the saved purlHub personalization {@link #object--object|Object} (w/ instance methods).
+			*
+			* @example
+			* object.save()
+			* 	.catch(console.error)
+			* 	.then(console.log);
+			*/
 			save: async function() {
 				return save(this);
 			},
+			/**
+			* Remove this personalization object instance.
+			* @async
+			* @memberof Object
+			* @returns {Promise<Object,HTTPError>}	A promise that resolves to the removed purlHub personalization {@link #object--object|Object} (static object w/ out instance methods).
+			*
+			* @example
+			* object.remove()
+			* 	.catch(console.error)
+			* 	.then(console.log);
+			*/
 			remove: async function() {
-				let name = this.purlCode || null;
-				return remove(name);
+				return remove(this.purlCode);
 			},
 			hashmap: hashmap
 		},
 		Object.getOwnPropertyDescriptors(data));
 	};
 
-	const get = async function get(name) {
-		expect(name, 'A purlCode is required!')
+	/**
+	* Gets a personalization object.
+	* @param {string} id		A purlCode to lookup.
+	* @returns {Promise<Object,HTTPError>}	A promise that resolves to a purlHub personalization {@link #object--object|Object} instance.
+	*
+	* @example
+	* let object = node.objects.get('JoePersonX13g')
+	* 	.catch(console.error)
+	* 	.then(console.log);
+	*/
+	const get = async function get(id) {
+		expect(id, 'A purlCode is required!')
 			.to.exist.and
 			.to.be.a('string')
 			.and.to.have.length.above(1);
 
-		expect(validator.isEmail(name), 'A purlCode is required!')
+		expect(validator.isEmail(id), 'A purlCode is required!')
 			.to.be.false;
 
 		let params = {
 			'containsFilter': {
-				'purlCode' : name
+				'purlCode' : id
 			},
 			attachAttributes: 'all',
 			attachRecords: 'all'
 		};
 
-		debug('Getting Object [%s].', name);
+		debug('Getting Object [%s].', id);
 		let res = await req.get(base+'/purlProfilesList').query(params);
 		resdbg('%O', res.body.response.data[0]);
 		return compose(res.body.response.data[0]);
 	};
 
+	/**
+	* Lists all personalization objects in a node.
+	* @returns {Promise<Object,HTTPError>}	A promise that resolves to an array of purlHub personalization {@link #object--object|Object} object instances.
+	*
+	* @example
+	* let objects = node.objects.list()
+	* 	.catch(console.error)
+	* 	.then(console.log);
+	*/
 	const list = async function list(filter) {
 		let data = [];
 
@@ -150,6 +201,22 @@ function objects(base, user, pass) {
 		return data.map(compose);
 	};
 
+	/**
+	* Saves a complete personalization object.
+	* @param {object} data	A purlHub personalization {@link #object--object|Object} object.
+	* @returns {Promise<Object,HTTPError>}	A promise that resolves to a purlHub personalization {@link #object--object|Object} instance.
+	*
+	* @example
+	* let user = node.objects.save({
+	*     profile: {
+	*       firstName: 'Joe',
+	*       lastName: 'Person',
+	* 		 email: 'user@example.com'
+	*     }
+	*   })
+	*   .catch(console.error)
+	*   .then(console.log);
+	*/
 	const save = async function save(data) {
 		expect(data, 'Some data (obj) is required!')
 			.to.exist.and
@@ -272,6 +339,17 @@ function objects(base, user, pass) {
 		return compose(data);
 	};
 
+	/**
+	* Removes a personalization object.
+	* @async
+	* @param {string} id		The purlCode to remove.
+	* @returns {Promise<Object,HTTPError>}	A promise that resolves to the removed purlHub personalization {@link #object--object|Object} (static object w/ out instance methods).
+	*
+	* @example
+	* let user = node.objects.remove('JoePersonX13g')
+	* 	.catch(console.error)
+	* 	.then(console.log);
+	*/
 	const remove = async function remove(code) {
 		expect(code, 'A purlCode is required!')
 			.to.exist.and

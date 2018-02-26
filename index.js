@@ -30,11 +30,12 @@ function trimSlashes (data) {
  * @type module
  * @namespace API
  *
+ *
  * @param {string} base 	The API root URI (i.e. https://api.purlhub.com).
  * @param {string} user 	A login username.
  * @param {string} pass 	The associated password.
  *
- * @returns {class} A class bound to the URI and credential set.
+ * @returns {object} A object bound to the URI and credential set.
  *
  * @example
  * const API = require('purlhub-api1x-consumer');
@@ -44,7 +45,7 @@ function trimSlashes (data) {
  * const API = require('purlhub-api1x-consumer');
  * let api = API('https://api.purlhub.com', 'user@example.com', '12345678');
  */
-function api(base, user, pass) {
+function API(base, user, pass) {
 	user = sanitize(user);
 	pass = sanitize(pass);
 
@@ -78,4 +79,4 @@ function api(base, user, pass) {
 	};
 }
 
-module.exports = api;
+module.exports = API;

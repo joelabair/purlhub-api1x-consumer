@@ -88,7 +88,7 @@ function library(base, user, pass) {
 			* Save this asset instance.
 			* @async
 			* @memberof Asset
-			* @returns {Promise<Asset,HTTPError>}	A promise that resolves to the saved purlHub {@link #asset|Asset} (w/ instance methods).
+			* @returns {Promise<Asset,HTTPError>}	A promise that resolves to the saved purlHub {@link #asset--object|Asset} (w/ instance methods).
 			*
 			* @example
 			* asset.save()
@@ -102,7 +102,7 @@ function library(base, user, pass) {
 			* Remove this asset instance.
 			* @async
 			* @memberof Asset
-			* @returns {Promise<Asset,HTTPError>}	A promise that resolves to the removed purlHub {@link #asset|Asset} (static object w/ out instance methods).
+			* @returns {Promise<Asset,HTTPError>}	A promise that resolves to the removed purlHub {@link #asset--object|Asset} (static object w/ out instance methods).
 			*
 			* @example
 			* asset.remove()
@@ -126,7 +126,7 @@ function library(base, user, pass) {
 	* @param {string} context		The asset's context (images|documents|videos|layouts|sections|templates).
 	* @param {string} filename		A asset filename including any path.
 	* @param {object} [options]		An optional object of request options.
-	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to a purlHub {@link #asset|Asset} instance.
+	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to a purlHub {@link #asset--object|Asset} instance.
 	*
 	* @example
 	* let asset = account.library.get('templates','/email/message.txt')
@@ -166,7 +166,7 @@ function library(base, user, pass) {
 	* @param {string} context		The asset's context (images|documents|videos|layouts|sections|templates).
 	* @param {string} [directory]	An optional directory prefix.
 	* @param {object} [options]		An optional object of request options.
-	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to an array of purlHub {@link #asset|Asset} object instances.
+	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to an array of purlHub {@link #asset--object|Asset} object instances.
 	*
 	* @example
 	* let assets = account.library.list('templates')
@@ -213,9 +213,9 @@ function library(base, user, pass) {
 	/**
 	* Saves a library asset.
 	* @async
-	* @param {object} asset			A purlHub {@link #asset|Asset} instance.
+	* @param {object} asset			A purlHub {@link #asset--object|Asset} instance.
 	* @param {object} [options]		An optional object of request options.
-	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to a purlHub {@link #asset|Asset} instance.
+	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to a purlHub {@link #asset--object|Asset} instance.
 	*
 	* @example
 	* let asset = account.library.save({
@@ -304,7 +304,7 @@ function library(base, user, pass) {
 	* @param {string} context		The asset's context (images|documents|videos|layouts|sections|templates).
 	* @param {string} filename		A asset filename including any path.
 	* @param {object} [options]		An optional object of request options.
-	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to a purlHub {@link #asset|Asset} instance (static object w/ out instance methods).
+	* @returns {Promise<Asset,HTTPError>}	A promise that resolves to a purlHub {@link #asset--object|Asset} instance (static object w/ out instance methods).
 	*
 	* @example
 	* let asset = account.library.remove('templates','/email/message.txt')

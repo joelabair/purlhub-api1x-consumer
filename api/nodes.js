@@ -117,7 +117,7 @@ function nodes(base, user, pass) {
 			* Save this node instance.
 			* @async
 			* @memberof Node
-			* @returns {Promise<Node,HTTPError>}	A promise that resolves to the saved purlHub {@link #node|Node} (w/ instance methods).
+			* @returns {Promise<Node,HTTPError>}	A promise that resolves to the saved purlHub {@link #node--object|Node} (w/ instance methods).
 			*
 			* @example
 			* node.save()
@@ -131,7 +131,7 @@ function nodes(base, user, pass) {
 			* Remove this node instance.
 			* @async
 			* @memberof Node
-			* @returns {Promise<Node,HTTPError>}	A promise that resolves to the removed purlHub {@link #node|Node} (static object w/ out instance methods).
+			* @returns {Promise<Node,HTTPError>}	A promise that resolves to the removed purlHub {@link #node--object|Node} (static object w/ out instance methods).
 			*
 			* @example
 			* node.remove()
@@ -151,7 +151,7 @@ function nodes(base, user, pass) {
 	* Gets a node.
 	* @async
 	* @param {string} path		A node path.
-	* @returns {Promise<Node,HTTPError>}	A promise that resolves to a purlHub {@link #node|Node} instance.
+	* @returns {Promise<Node,HTTPError>}	A promise that resolves to a purlHub {@link #node--object|Node} instance.
 	*
 	* @example
 	* let node = account.nodes.get('/default/Sales')
@@ -175,7 +175,7 @@ function nodes(base, user, pass) {
 	/**
 	* Lists all nodes.
 	* @async
-	* @returns {Promise<Node,HTTPError>}	A promise that resolves to an array of purlHub {@link #node|Node} object instances.
+	* @returns {Promise<Node,HTTPError>}	A promise that resolves to an array of purlHub {@link #node--object|Node} object instances.
 	*
 	* @example
 	* let node = account.nodes.list()
@@ -192,8 +192,8 @@ function nodes(base, user, pass) {
 	/**
 	* Saves a node.
 	* @async
-	* @param {object} data	A purlHub {@link #node|Node} object.
-	* @returns {Promise<Node,HTTPError>}	A promise that resolves to a purlHub {@link #node|Node} instance.
+	* @param {object} data	A purlHub {@link #node--object|Node} object.
+	* @returns {Promise<Node,HTTPError>}	A promise that resolves to a purlHub {@link #node--object|Node} instance.
 	*
 	* @example
 	* let node = account.nodes.save({
@@ -243,7 +243,7 @@ function nodes(base, user, pass) {
 	* Removes a node.
 	* @async
 	* @param {string} name	A node path.
-	* @returns {Promise<Node,HTTPError>}	A promise that resolves to the removed purlHub {@link #node|Node} (static object w/ out instance methods).
+	* @returns {Promise<Node,HTTPError>}	A promise that resolves to the removed purlHub {@link #node--object|Node} (static object w/ out instance methods).
 	*
 	* @example
 	* let node = account.nodes.remove('/default/Sales')
