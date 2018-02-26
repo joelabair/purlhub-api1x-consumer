@@ -34,7 +34,7 @@ Intended to simplify the access to hierarchical objects in the purlHub core ecos
 * [Node](#Node) : <code>object</code>
     * [.objects](#Node.objects)
         * [~get(id)](#Node.objects..get) ⇒ <code>Promise</code>
-        * [~list()](#Node.objects..list) ⇒ <code>Promise</code>
+        * [~list(filter)](#Node.objects..list) ⇒ <code>Promise</code>
         * [~save(data)](#Node.objects..save) ⇒ <code>Promise</code>
         * [~remove(id)](#Node.objects..remove) ⇒ <code>Promise</code>
     * [.save()](#Node.save) ⇒ <code>Promise</code>
@@ -661,7 +661,7 @@ A purlHub account child node instance.
 * [Node](#Node) : <code>object</code>
     * [.objects](#Node.objects)
         * [~get(id)](#Node.objects..get) ⇒ <code>Promise</code>
-        * [~list()](#Node.objects..list) ⇒ <code>Promise</code>
+        * [~list(filter)](#Node.objects..list) ⇒ <code>Promise</code>
         * [~save(data)](#Node.objects..save) ⇒ <code>Promise</code>
         * [~remove(id)](#Node.objects..remove) ⇒ <code>Promise</code>
     * [.save()](#Node.save) ⇒ <code>Promise</code>
@@ -679,7 +679,7 @@ API Accounts Nodes Objects sub-structure.
 
 * [.objects](#Node.objects)
     * [~get(id)](#Node.objects..get) ⇒ <code>Promise</code>
-    * [~list()](#Node.objects..list) ⇒ <code>Promise</code>
+    * [~list(filter)](#Node.objects..list) ⇒ <code>Promise</code>
     * [~save(data)](#Node.objects..save) ⇒ <code>Promise</code>
     * [~remove(id)](#Node.objects..remove) ⇒ <code>Promise</code>
 
@@ -710,12 +710,17 @@ let object = node.objects.get('JoePersonX13g')
 
 <a name="Node.objects..list"></a>
 
-#### objects~list() ⇒ <code>Promise</code>
+#### objects~list(filter) ⇒ <code>Promise</code>
 Lists all personalization objects in a node.
 
 **Kind**: inner method of [<code>objects</code>](#Node.objects)  
 **Fulfil**: <code>Object[]</code>	An array of purlHub personalization object instances.  
 **Reject**: <code>HTTPError</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filter | <code>object</code> | Some search criteria (i.e. {email: 'user@example.com'}). |
+
 **Example**  
 ```js
 let objects = node.objects.list()
