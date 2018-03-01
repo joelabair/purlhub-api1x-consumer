@@ -749,7 +749,7 @@ let user = node.objects.save({
     profile: {
       firstName: 'Joe',
       lastName: 'Person',
-		 email: 'user@example.com'
+      email: 'user@example.com'
     }
   })
   .catch(console.error)

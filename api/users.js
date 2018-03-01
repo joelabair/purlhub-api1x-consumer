@@ -6,7 +6,6 @@ const resdbg = require('debug')(debugPrefix+':accounts.users-response');
 
 const expect = require('chai').expect;
 const request = require('superagent');
-require('superagent-retry')(request);
 
 
 /**

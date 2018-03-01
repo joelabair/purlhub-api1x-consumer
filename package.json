@@ -4,7 +4,7 @@
   "description": "Basic ES6+ purlHub v1.0 REST API JavaScript client library. ",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "export DEBUG=0 && snyk test && mocha",
     "docs": "jsdoc2md --separators -g grouped -t README.hbs index.js api/* > README.md",
     "prepublish": "npm run docs"
   },
@@ -22,15 +22,15 @@
   },
   "devDependencies": {
     "chai": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "snyk": "^1.69.10"
   },
   "dependencies": {
     "chai": "*",
     "debug": "*",
     "md5": "^2.2.1",
-    "superagent": "*",
-    "superagent-retry": "*",
-    "superagent-throttle": "*",
-    "validator": "*"
+    "superagent": "^3.8.2",
+    "superagent-throttle": "https://github.com/joelabair/superagent-throttle.git",
+    "validator": "^9.4.1"
   }
 }

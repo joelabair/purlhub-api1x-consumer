@@ -9,7 +9,6 @@ const md5 = require('md5');
 const expect = require('chai').expect;
 const validator = require('validator');
 const request = require('superagent');
-require('superagent-retry')(request);
 
 async function _getBatch(req, base, filter, offset) {
 	let params = {
@@ -230,7 +229,7 @@ function objects(base, user, pass) {
 	*     profile: {
 	*       firstName: 'Joe',
 	*       lastName: 'Person',
-	* 		 email: 'user@example.com'
+	*       email: 'user@example.com'
 	*     }
 	*   })
 	*   .catch(console.error)

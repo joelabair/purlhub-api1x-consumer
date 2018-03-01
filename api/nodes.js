@@ -8,7 +8,6 @@ const path = require('path');
 const validator = require('validator');
 const expect = require('chai').expect;
 const request = require('superagent');
-require('superagent-retry')(request);
 
 function sanitize(data) {
 	data = validator.toString(data);
