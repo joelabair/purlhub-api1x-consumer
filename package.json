@@ -30,7 +30,7 @@
     "debug": "*",
     "md5": "^2.2.1",
     "superagent": "^3.8.2",
-    "superagent-throttle": "https://github.com/joelabair/superagent-throttle.git",
+    "superagent-throttle": "git+https://github.com/joelabair/superagent-throttle.git",
     "validator": "^9.4.1"
   }
 }

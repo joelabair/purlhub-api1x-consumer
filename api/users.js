@@ -217,6 +217,7 @@ function users(base, user, pass) {
 
 		if ('id' in data && data.id !== data.login) {
 			_data.newLogin = data.login;
+			delete data.login;
 		}
 
 		debug('Saving User [%s] w/ %O', name, _data);
