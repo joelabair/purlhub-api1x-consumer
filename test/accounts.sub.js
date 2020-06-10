@@ -67,18 +67,13 @@ module.exports = () => {
 
 	describe('list method', () => {
 
-		it('throws an error when attempting to lists accounts', async () => {
-			try {
-				let list = await accounts.list();
-				expect( list )
-					.to.not.exist;
-			} catch (e) {
-				expect(e.status)
-					.to.equal(403);
+		it('can lists accounts', async () => {
+			let list = await accounts.list({limit:10});
 
-				expect(e.message)
-					.to.include('Forbidden');
-			}
+			expect(list)
+				.to.exist
+				.and.to.have.lengthOf(10);
+
 		});
 
 	});

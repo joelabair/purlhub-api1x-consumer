@@ -6,6 +6,7 @@
   "scripts": {
     "test": "export DEBUG=0 && snyk test && mocha",
     "docs": "jsdoc2md --separators -g grouped -t README.hbs index.js api/* > README.md",
+    "snyk": "snyk --org=ee550009-67f6-484e-816e-73910b1dc5c7",
     "prepublish": "npm run docs"
   },
   "repository": {

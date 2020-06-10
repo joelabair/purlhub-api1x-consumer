@@ -153,9 +153,9 @@ function accounts(base, user, pass) {
 	*   .catch(console.error)
 	*   .then(console.log);
 	*/
-	const list = async function list() {
+	const list = async function list(params) {
 		debug('Scanning Accounts...');
-		let res = await req.get(base+'/admin/rest/accounts/');
+		let res = await req.get(base+'/admin/rest/accounts/').query(params);
 		resdbg('%O', res.body.response.data);
 		return res.body.response.data.map(compose); // array of objects
 	};
