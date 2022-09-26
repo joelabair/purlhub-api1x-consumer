@@ -24,7 +24,7 @@
   "devDependencies": {
     "chai": "*",
     "mocha": "*",
-    "snyk": "^1.69.10"
+    "snyk": "^1.1012.0"
   },
   "dependencies": {
     "chai": "*",
